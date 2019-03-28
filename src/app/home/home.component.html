@@ -1,4 +1,16 @@
-<p>
+<div>
   Step 1: Connect your Spotify account!
-  <button (click)="spotifyConnect()">Connect your Spotify Account</button>
-</p>
+  <div *ngIf="!spotifyApiService.isConnected()">
+    <button (click)="spotifyConnect()">Connect your Spotify Account</button>
+  </div>
+  <div *ngIf="spotifyApiService.isConnected()">
+    You are connected!
+  </div>
+</div>
+
+<div *ngIf="spotifyApiService.isConnected()">
+  Step 2: Choose a Playlist
+  <div *ngFor="let playlist of spotifyApiService.playlists">
+    {{ playlist.name }}
+  </div>
+</div>
