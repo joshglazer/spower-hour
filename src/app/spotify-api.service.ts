@@ -17,8 +17,10 @@ const httpOptions = {
 })
 export class SpotifyApiService {
 
-  private accessToken: string = null;
-  private playlists = [];
+  accessToken: string = null;
+  playlists = [];
+  playlistSelected = null;
+  tracks = [];
 
   constructor(private http: HttpClient) { }
 
@@ -60,6 +62,19 @@ export class SpotifyApiService {
     const playlistsUrl: string = 'https://api.spotify.com/v1/me/playlists';
     this.http.get(playlistsUrl, this.getHeaders()).subscribe((res: any)=>{
       this.playlists = res.items;
+    });
+  }
+
+  selectPlaylist(playlist) {
+    this.playlistSelected = playlist;
+    this.getPlaylistTracks(playlist);
+  }
+
+  getPlaylistTracks(playlist) {
+    const playlistsTracksUrl: string = playlist.tracks.href;
+    this.http.get(playlistsTracksUrl, this.getHeaders()).subscribe((res: any)=>{
+      console.log(this.tracks);
+      this.tracks = res.items;
     });
   }
 }

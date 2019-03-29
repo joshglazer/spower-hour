@@ -10,7 +10,19 @@
 
 <div *ngIf="spotifyApiService.isConnected()">
   Step 2: Choose a Playlist
-  <div *ngFor="let playlist of spotifyApiService.playlists">
-    {{ playlist.name }}
+  <div *ngIf="!spotifyApiService.playlistSelected">
+    <div *ngFor="let playlist of spotifyApiService.playlists" (click)="spotifyApiService.selectPlaylist(playlist)">
+      {{ playlist.name }}
+    </div>
   </div>
+</div>
+
+<div *ngIf="spotifyApiService.playlistSelected">
+  Step 3: Start the Spower Hour!
+  <div *ngIf="spotifyApiService.tracks">
+    <div *ngFor="let track of spotifyApiService.tracks">
+      {{ track.track.name }}
+    </div>
+  </div>
+
 </div>
