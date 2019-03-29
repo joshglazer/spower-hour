@@ -67,14 +67,16 @@ export class SpotifyApiService {
 
   selectPlaylist(playlist) {
     this.playlistSelected = playlist;
-    this.getPlaylistTracks(playlist);
+    this.playPlaylist(playlist);
   }
 
-  getPlaylistTracks(playlist) {
-    const playlistsTracksUrl: string = playlist.tracks.href;
-    this.http.get(playlistsTracksUrl, this.getHeaders()).subscribe((res: any)=>{
-      console.log(this.tracks);
-      this.tracks = res.items;
+  playPlaylist(playlist) {
+    const playUrl: string = 'https://api.spotify.com/v1/me/player/play';
+    const trackData = {
+      "context_uri": playlist.uri
+    }
+    this.http.put(playUrl, JSON.stringify(trackData), this.getHeaders()).subscribe((res: any)=>{
+      console.log(res);
     });
   }
 }
