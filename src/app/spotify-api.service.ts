@@ -79,4 +79,11 @@ export class SpotifyApiService {
       console.log(res);
     });
   }
+
+  playNextTrack() {
+    const playNextUrl: string = 'https://api.spotify.com/v1/me/player/next';
+    this.http.post(playNextUrl, null, this.getHeaders()).subscribe((res: any)=>{
+      console.log(res);
+    });
+  }
 }

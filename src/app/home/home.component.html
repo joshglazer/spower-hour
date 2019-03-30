@@ -11,7 +11,7 @@
 <div *ngIf="spotifyApiService.isConnected()">
   Step 2: Choose a Playlist
   <div *ngIf="!spotifyApiService.playlistSelected">
-    <div *ngFor="let playlist of spotifyApiService.playlists" (click)="spotifyApiService.selectPlaylist(playlist)">
+    <div *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)">
       {{ playlist.name }}
     </div>
   </div>
@@ -24,5 +24,7 @@
       {{ track.track.name }}
     </div>
   </div>
-
+  <div *ngIf="counter">
+    {{ counter }} seconds left!
+  </div>
 </div>
