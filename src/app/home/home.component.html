@@ -24,6 +24,11 @@
       {{ track.track.name }}
     </div>
   </div>
+  <div *ngIf="spotifyApiService.currentTrack">
+    Now Playing:
+    <div><img [src]="spotifyApiService.currentTrack.item.album.images[0].url" /></div>
+    <div>{{ spotifyApiService.currentTrack.item.name }}</div>
+  </div>
   <div *ngIf="counter">
     {{ counter }} seconds left!
   </div>

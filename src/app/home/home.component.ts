@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 import { SpotifyApiService } from '../spotify-api.service';
 
@@ -13,10 +13,15 @@ export class HomeComponent implements OnInit {
 
   constructor(public spotifyApiService: SpotifyApiService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  spotifyConnect() {
+  @HostListener('window:beforeunload')
+  stopSpotify() {
+    this.spotifyApiService.stop();
+  }
+
+  spotifyConnect():void {
     window.location.href = this.spotifyApiService.getConnectUrl();
   }
 
@@ -25,12 +30,12 @@ export class HomeComponent implements OnInit {
     this.spotifyApiService.selectPlaylist(playlist);
   }
 
-  resetCounter() {
-    this.counter = 61;
+  resetCounter(): void {
+    this.counter = 11;
     this.counterTick();
   }
 
-  counterTick() {
+  counterTick(): void {
     this.counter--;
     if (this.counter <= 0) {
       this.spotifyApiService.playNextTrack();
