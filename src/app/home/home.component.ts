@@ -10,10 +10,14 @@ import { SpotifyApiService } from '../spotify-api.service';
 export class HomeComponent implements OnInit {
 
   counter: number = null;
+  currentStep: number = 0;
 
   constructor(public spotifyApiService: SpotifyApiService) { }
 
   ngOnInit(): void {
+    if (this.spotifyApiService.isConnected()) {
+      this.currentStep = 1;
+    }
   }
 
   @HostListener('window:beforeunload')
@@ -28,10 +32,13 @@ export class HomeComponent implements OnInit {
   selectPlaylist(playlist) {
     this.resetCounter();
     this.spotifyApiService.selectPlaylist(playlist);
+    console.log(this.spotifyApiService.playlistSelected);
+    this.currentStep = 2;
+    console.log(this.currentStep);
   }
 
   resetCounter(): void {
-    this.counter = 11;
+    this.counter = 16;
     this.counterTick();
   }
 

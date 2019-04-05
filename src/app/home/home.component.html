@@ -1,35 +1,29 @@
-<div>
-  Step 1: Connect your Spotify account!
-  <div *ngIf="!spotifyApiService.isConnected()">
-    <button (click)="spotifyConnect()">Connect your Spotify Account</button>
-  </div>
-  <div *ngIf="spotifyApiService.isConnected()">
-    You are connected!
-  </div>
-</div>
-
-<div *ngIf="spotifyApiService.isConnected()">
-  Step 2: Choose a Playlist
-  <div *ngIf="!spotifyApiService.playlistSelected">
+<mat-vertical-stepper [linear]="true" #stepper [selectedIndex]="currentStep">
+  <mat-step [completed]="true">
+    <ng-template matStepLabel>Step 1: Connect your Spotify account!</ng-template>
+    <div *ngIf="!spotifyApiService.isConnected()">
+      <button (click)="spotifyConnect()">Connect your Spotify Account</button>
+    </div>
+    <div *ngIf="spotifyApiService.isConnected()">
+      You are connected!
+    </div>
+  </mat-step>
+  <mat-step [completed]="true">
+    <ng-template matStepLabel>Step 2: Choose a Playlist!</ng-template>
     <div *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)">
       {{ playlist.name }}
     </div>
-  </div>
-</div>
-
-<div *ngIf="spotifyApiService.playlistSelected">
-  Step 3: Start the Spower Hour!
-  <div *ngIf="spotifyApiService.tracks">
-    <div *ngFor="let track of spotifyApiService.tracks" (click)="spotifyApiService.playTrack(track)">
-      {{ track.track.name }}
+  </mat-step>
+  <mat-step [completed]="true">
+    <ng-template matStepLabel>Step 3: Start the Spower Hour!</ng-template>
+    <div *ngIf="spotifyApiService.currentTrack" class="currentTrack">
+      <div class="currentTrackImage">
+        <img [src]="spotifyApiService.currentTrack.item.album.images[0].url" />
+        <div class="currentTrackCounter" *ngIf="counter">
+          {{ counter }}
+        </div>      
+      </div>
+      <div>{{ spotifyApiService.currentTrack.item.name }}</div>
     </div>
-  </div>
-  <div *ngIf="spotifyApiService.currentTrack">
-    Now Playing:
-    <div><img [src]="spotifyApiService.currentTrack.item.album.images[0].url" /></div>
-    <div>{{ spotifyApiService.currentTrack.item.name }}</div>
-  </div>
-  <div *ngIf="counter">
-    {{ counter }} seconds left!
-  </div>
-</div>
+  </mat-step>
+</mat-vertical-stepper>

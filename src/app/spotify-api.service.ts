@@ -98,7 +98,7 @@ export class SpotifyApiService {
         console.log(res);
         this.currentTrack = res;
       });
-    }, 500)
+    }, 250)
   }
 
   stop() {

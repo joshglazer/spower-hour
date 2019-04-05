@@ -1,0 +1,19 @@
+.currentTrack {
+  width: 200px;
+  text-align: center;
+}
+
+.currentTrackImage {
+  position: relative;
+}
+
+.currentTrackCounter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
+  color: #000000;
+  text-shadow: #FFFFFF 1px 0 10px;
+  font-weight: bold;
+}
