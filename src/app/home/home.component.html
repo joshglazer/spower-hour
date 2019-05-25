@@ -9,13 +9,20 @@
     </div>
   </mat-step>
   <mat-step [completed]="true">
-    <ng-template matStepLabel>Step 2: Choose a Playlist!</ng-template>
+    <ng-template matStepLabel>Step 2: Choose a Device!</ng-template>
+    <div *ngFor="let device of spotifyApiService.devices" (click)="this.setDevice(device)">
+      {{ device.name }}
+    </div>
+    <div (click)="spotifyApiService.getDevices()">Don't see your device? Open spotify on that device and click here to refresh the list above.</div>
+  </mat-step>
+  <mat-step [completed]="true">
+    <ng-template matStepLabel>Step 3: Choose a Playlist!</ng-template>
     <div *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)">
       {{ playlist.name }}
     </div>
   </mat-step>
   <mat-step [completed]="true">
-    <ng-template matStepLabel>Step 3: Start the Spower Hour!</ng-template>
+    <ng-template matStepLabel>Step 4: Start the Spower Hour!</ng-template>
     <div *ngIf="spotifyApiService.currentTrack" class="currentTrack">
       <div class="currentTrackImage">
         <img [src]="spotifyApiService.currentTrack.item.album.images[0].url" />
