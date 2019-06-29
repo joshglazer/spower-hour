@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule, MatStepperModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -24,6 +29,9 @@ import { ConnectComponent } from './connect/connect.component';
     BrowserAnimationsModule,
     MatIconModule,
     MatStepperModule,
+    MatCardModule,
+    MatGridListModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

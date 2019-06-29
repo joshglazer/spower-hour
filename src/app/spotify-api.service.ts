@@ -69,8 +69,7 @@ export class SpotifyApiService {
       play: true,
     };
     this.http.put(deviceUrl, JSON.stringify(deviceData), this.getHeaders()).subscribe((res: any) => {
-      this.devices = res.devices;
-      console.log(this.devices);
+      console.log(`Device set`);
     });
   }
 
@@ -78,6 +77,7 @@ export class SpotifyApiService {
     const playlistsUrl = 'https://api.spotify.com/v1/me/playlists';
     this.http.get(playlistsUrl, this.getHeaders()).subscribe((res: any) => {
       this.playlists = res.items;
+      console.log(this.playlists);
     });
   }
 

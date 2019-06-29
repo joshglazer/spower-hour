@@ -1,27 +1,39 @@
 <mat-vertical-stepper [linear]="true" #stepper [selectedIndex]="currentStep">
-  <mat-step [completed]="true">
+  <mat-step [completed]="checkStep(1)">
     <ng-template matStepLabel>Step 1: Connect your Spotify account!</ng-template>
     <div *ngIf="!spotifyApiService.isConnected()">
-      <button (click)="spotifyConnect()">Connect your Spotify Account</button>
+      <button (click)="spotifyConnect()" mat-raised-button color="primary">Connect your Spotify Account</button>
     </div>
     <div *ngIf="spotifyApiService.isConnected()">
       You are connected!
     </div>
   </mat-step>
-  <mat-step [completed]="true">
+  <mat-step [completed]="checkStep(2)">
     <ng-template matStepLabel>Step 2: Choose a Device!</ng-template>
-    <div *ngFor="let device of spotifyApiService.devices" (click)="this.setDevice(device)">
+    <button mat-raised-button color="primary" *ngFor="let device of spotifyApiService.devices" (click)="this.setDevice(device)">
       {{ device.name }}
-    </div>
-    <div (click)="spotifyApiService.getDevices()">Don't see your device? Open spotify on that device and click here to refresh the list above.</div>
+    </button>
+    <mat-divider></mat-divider>
+    <div>Don't see your device? Open spotify on that device and click here to refresh the list above.</div>
+    <button mat-raised-button color="primary" (click)="spotifyApiService.getDevices()">
+      <mat-icon aria-hidden="false" aria-label="Refresh">refresh</mat-icon>
+      Refresh
+    </button>
   </mat-step>
-  <mat-step [completed]="true">
+  <mat-step [completed]="checkStep(3)">
     <ng-template matStepLabel>Step 3: Choose a Playlist!</ng-template>
-    <div *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)">
-      {{ playlist.name }}
-    </div>
-  </mat-step>
-  <mat-step [completed]="true">
+    <mat-grid-list cols="4">
+      <mat-grid-tile  *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)">
+        <mat-card class="playlistCard">
+          <mat-card-header>
+            <mat-card-title>{{ playlist.name }}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image [src]="playlist.images[0].url" [alt]="playlist.name + ' image'"> 
+        </mat-card>     
+      </mat-grid-tile>
+    </mat-grid-list>
+</mat-step>
+  <mat-step [completed]="checkStep(4)">
     <ng-template matStepLabel>Step 4: Start the Spower Hour!</ng-template>
     <div *ngIf="spotifyApiService.currentTrack" class="currentTrack">
       <div class="currentTrackImage">
