@@ -1,20 +1,23 @@
+// Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Material
 import { MatIconModule, MatStepperModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 
-
-
+// Components
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { ConnectComponent } from './connect/connect.component';
+import { HomeComponent } from './components/home/home.component';
+import { ConnectComponent } from './components/connect/connect.component';
 
+// Services
+import { SpotifyApiService } from './services/spotify-api/spotify-api.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { ConnectComponent } from './connect/connect.component';
     MatGridListModule,
     MatDividerModule,
   ],
-  providers: [],
+  providers: [
+    SpotifyApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

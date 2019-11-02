@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router"
+import {Router} from '@angular/router';
 
-import { SpotifyApiService } from '../spotify-api.service';
+import { SpotifyApiService } from '../../services/spotify-api/spotify-api.service';
 
 @Component({
   selector: 'app-connect',
@@ -17,7 +17,7 @@ export class ConnectComponent implements OnInit {
     if (!connected) {
       alert('Uh Oh! It looks like you did not agree to allow us to access your Spotify account. Please try again and make sure you click the "Agree" button.');
     }
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
 }
