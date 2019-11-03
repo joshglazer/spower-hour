@@ -19,12 +19,14 @@ import { ConnectComponent } from './components/connect/connect.component';
 
 // Services
 import { SpotifyApiService } from './services/spotify-api/spotify-api.service';
+import { PlayComponent } from './components/play/play.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ConnectComponent
+    ConnectComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,
