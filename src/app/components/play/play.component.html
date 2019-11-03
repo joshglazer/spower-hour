@@ -14,17 +14,7 @@
   </mat-step>
   <mat-step [completed]="checkStep(2)">
     <ng-template matStepLabel>Step 2: Choose a Playlist!</ng-template>
-    <mat-grid-list cols="4">
-      <mat-grid-tile  *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)">
-        <mat-card class="playlistCard">
-          <mat-card-header>
-            <mat-card-title>{{ playlist.name }}</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image [src]="playlist.images[0].url" [alt]="playlist.name + ' image'"> 
-        </mat-card>     
-      </mat-grid-tile>
-    </mat-grid-list>
-</mat-step>
+  </mat-step>
   <mat-step [completed]="checkStep(3)">
     <ng-template matStepLabel>Step 3: Start the Spower Hour!</ng-template>
     <div *ngIf="spotifyApiService.currentTrack" class="currentTrack">
@@ -38,3 +28,13 @@
     </div>
   </mat-step>
 </mat-vertical-stepper>
+
+
+<ngx-masonry [useImagesLoaded]="true">
+  <div ngxMasonryItem *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)" class="playlist">
+    <img class='playlistImage' [src]="playlist.images[0].url" [alt]="playlist.name + ' image'"> 
+    <div class='playlistTitle'>
+      <p>{{ playlist.name }}</p>
+    </div>
+  </div>
+</ngx-masonry>

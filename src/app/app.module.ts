@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Modules
+import { NgxMasonryModule } from 'ngx-masonry';
+
 // Material
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -33,6 +36,7 @@ import { PlayComponent } from './components/play/play.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxMasonryModule,
     MatIconModule,
     MatStepperModule,
     MatCardModule,

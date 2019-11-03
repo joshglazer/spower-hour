@@ -16,6 +16,8 @@ export class PlayComponent implements OnInit {
   currentStep = 0;
   maxStep = 0;
 
+  updateMasonryLayout = false;
+
   constructor(
     public spotifyApiService: SpotifyApiService,
     private router: Router
@@ -37,7 +39,10 @@ export class PlayComponent implements OnInit {
     }
     // Spin off async thread to set the step for the material stepper
     // If this is done syncronously, the stepper does not change
-    setTimeout(() => this.currentStep = step, 0);
+    setTimeout(() => {
+      this.currentStep = step;
+      this.updateMasonryLayout = true;
+    }, 0);
   }
 
   checkStep(step: number): boolean {
@@ -53,7 +58,6 @@ export class PlayComponent implements OnInit {
   selectPlaylist(playlist) {
     this.resetCounter();
     this.spotifyApiService.selectPlaylist(playlist);
-    console.log(this.spotifyApiService.playlistSelected);
     this.setStep(2);
   }
 

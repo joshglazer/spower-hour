@@ -18,6 +18,8 @@ export class SpotifyApiService {
   tracks = [];
   currentTrack = null;
 
+  updateMasonryLayout = false;
+
   constructor(private http: HttpClient) { }
 
   isConnected(): boolean {
@@ -78,6 +80,7 @@ export class SpotifyApiService {
     this.http.get(playlistsUrl, this.getHeaders()).subscribe((res: any) => {
       this.playlists = res.items;
       console.log(this.playlists);
+      this.updateMasonryLayout = true;
     });
   }
 
