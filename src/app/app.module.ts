@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Modules
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Material
 import { MatIconModule } from '@angular/material/icon';
@@ -48,6 +49,7 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     MatGridListModule,
     MatDividerModule,
     FontAwesomeModule,
+    FlexLayoutModule,
   ],
   providers: [
     SpotifyApiService
