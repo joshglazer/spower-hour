@@ -3,7 +3,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Services
-import { SpotifyApiService } from '../../services/spotify-api/spotify-api.service';
+import { SpotifyApiService } from '../../../services/spotify-api/spotify-api.service';
 
 @Component({
   selector: 'app-home',
