@@ -13,10 +13,6 @@ import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service
 export class PlayComponent implements OnInit {
 
   counter: number = null;
-  currentStep = 0;
-  maxStep = 0;
-
-  updateMasonryLayout = false;
 
   constructor(
     public spotifyApiService: SpotifyApiService,
@@ -25,7 +21,6 @@ export class PlayComponent implements OnInit {
 
   ngOnInit() {
     if (this.spotifyApiService.isConnected()) {
-      this.setStep(0);
       this.spotifyApiService.getDevices();
       this.spotifyApiService.getPlaylists();
     } else {
@@ -33,24 +28,7 @@ export class PlayComponent implements OnInit {
     }
   }
 
-  setStep(step: number): void {
-    if (step > this.maxStep) {
-      this.maxStep = step;
-    }
-    // Spin off async thread to set the step for the material stepper
-    // If this is done syncronously, the stepper does not change
-    setTimeout(() => {
-      this.currentStep = step;
-      this.updateMasonryLayout = true;
-    }, 0);
-  }
-
-  checkStep(step: number): boolean {
-    return (this.maxStep >= step);
-  }
-
   setDevice(device) {
-    this.setStep(1);
     this.spotifyApiService.setDevice(2);
     console.log(device);
   }
@@ -58,7 +36,6 @@ export class PlayComponent implements OnInit {
   selectPlaylist(playlist) {
     this.resetCounter();
     this.spotifyApiService.selectPlaylist(playlist);
-    this.setStep(2);
   }
 
   resetCounter(): void {

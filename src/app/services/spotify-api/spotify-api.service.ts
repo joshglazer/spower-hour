@@ -89,6 +89,10 @@ export class SpotifyApiService {
     this.playPlaylist(playlist);
   }
 
+  hasPlaylistSelected() {
+    return this.playlistSelected !== null;
+  }
+
   playPlaylist(playlist) {
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
     const trackData = {

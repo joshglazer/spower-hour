@@ -16,7 +16,7 @@ import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 export class HomeComponent implements OnInit {
 
   faSpotify = faSpotify;
-  
+
   constructor(
     public spotifyApiService: SpotifyApiService,
     private router: Router
@@ -29,10 +29,10 @@ export class HomeComponent implements OnInit {
 
   }
 
-  @HostListener('window:beforeunload')
-  stopSpotify() {
-    this.spotifyApiService.stop();
-  }
+  // @HostListener('window:beforeunload')
+  // stopSpotify() {
+  //   this.spotifyApiService.stop();
+  // }
 
   spotifyConnect(): void {
     window.location.href = this.spotifyApiService.getConnectUrl();

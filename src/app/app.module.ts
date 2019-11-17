@@ -9,13 +9,6 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
-// Material
-import { MatIconModule } from '@angular/material/icon';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 
 // Components
@@ -28,6 +21,7 @@ import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service
 import { PlayComponent } from '@app/components/routes/play/play.component';
 import { HeaderComponent } from '@app/components/layout/header/header.component';
 import { FooterComponent } from '@app/components/layout/footer/footer.component';
+import { NowPlayingComponent } from './components/layout/now-playing/now-playing.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +30,8 @@ import { FooterComponent } from '@app/components/layout/footer/footer.component'
     ConnectComponent,
     PlayComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    NowPlayingComponent
   ],
   imports: [
     BrowserModule,
@@ -44,11 +39,6 @@ import { FooterComponent } from '@app/components/layout/footer/footer.component'
     HttpClientModule,
     BrowserAnimationsModule,
     NgxMasonryModule,
-    MatIconModule,
-    MatStepperModule,
-    MatCardModule,
-    MatGridListModule,
-    MatDividerModule,
     MatButtonModule,
     FontAwesomeModule,
     FlexLayoutModule,
