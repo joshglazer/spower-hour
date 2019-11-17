@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
 
 @Component({
-  selector: 'app-play',
-  templateUrl: './play.component.html',
-  styleUrls: ['./play.component.scss']
+  selector: 'app-playlists',
+  templateUrl: './playlists.component.html',
+  styleUrls: ['./playlists.component.scss']
 })
-export class PlayComponent implements OnInit {
+export class PlaylistsComponent implements OnInit {
 
   counter: number = null;
 

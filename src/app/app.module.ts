@@ -18,7 +18,7 @@ import { ConnectComponent } from '@app/components/routes/connect/connect.compone
 
 // Services
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
-import { PlayComponent } from '@app/components/routes/play/play.component';
+import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.component';
 import { HeaderComponent } from '@app/components/layout/header/header.component';
 import { FooterComponent } from '@app/components/layout/footer/footer.component';
 import { NowPlayingComponent } from './components/layout/now-playing/now-playing.component';
@@ -28,7 +28,7 @@ import { NowPlayingComponent } from './components/layout/now-playing/now-playing
     AppComponent,
     HomeComponent,
     ConnectComponent,
-    PlayComponent,
+    PlaylistsComponent,
     HeaderComponent,
     FooterComponent,
     NowPlayingComponent
