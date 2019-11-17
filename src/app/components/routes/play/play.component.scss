@@ -21,7 +21,7 @@ $playlist-size: 200px;
         width: 100%;
         object-fit: cover;
     }
-    &:hover {
+    &:hover, &.brokenImage {
         .playlistTitle {
             width: $playlist-size;
             height: 200px;

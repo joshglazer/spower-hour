@@ -1,8 +1,20 @@
 <h2>You have connected your Spotify account!</h2>
 <p>Click a playlist to get your spower hour started.</p>
 <ngx-masonry [useImagesLoaded]="true" [options]="{gutter: 10}">
-  <div ngxMasonryItem *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)" class="playlist lighten">
-    <img class='playlistImage' [src]="playlist.images[0].url" [alt]="playlist.name + ' image'"> 
+  <div 
+    ngxMasonryItem 
+    *ngFor="let playlist of spotifyApiService.playlists; let i = index" 
+    (click)="this.selectPlaylist(playlist)" 
+    class="playlist lighten"
+    [ngClass]="{'brokenImage': playlist.images.length === 0}"
+  >
+    <img 
+      *ngIf="playlist.images.length"
+      class='playlistImage' 
+      [src]="playlist.images[0].url"
+      [alt]="playlist.name + ' image'"
+      (error)="fixBrokenImage(i)"
+    > 
     <div class='playlistTitle'>
       <div 
         fxLayout="row"

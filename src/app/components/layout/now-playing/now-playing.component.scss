@@ -1,3 +1,14 @@
 #nowPlaying {
     margin-bottom: 2px;
+    #nowPlayingImage {
+        width: 100px;
+        height: 100px;
+        img {
+            object-fit: cover;
+            max-width: 100%;
+        }
+    }
+    #nowPlayingInfo {
+        padding-left: 10px;
+    }
 }

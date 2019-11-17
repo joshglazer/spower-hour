@@ -59,10 +59,8 @@ export class SpotifyApiService {
     const deviceUrl = 'https://api.spotify.com/v1/me/player/devices';
     this.http.get(deviceUrl, this.getHeaders()).subscribe((res: any) => {
       this.devices = res.devices;
-      console.log(this.devices);
     });
   }
-
 
   setDevice(device) {
     const deviceUrl = 'https://api.spotify.com/v1/me/player';
@@ -79,18 +77,23 @@ export class SpotifyApiService {
     const playlistsUrl = 'https://api.spotify.com/v1/me/playlists';
     this.http.get(playlistsUrl, this.getHeaders()).subscribe((res: any) => {
       this.playlists = res.items;
-      console.log(this.playlists);
       this.updateMasonryLayout = true;
     });
   }
 
-  selectPlaylist(playlist) {
-    this.playlistSelected = playlist;
-    this.playPlaylist(playlist);
+  playlistFixBrokenImage(index) {
+    console.log(this.playlists[index]);
+    this.playlists[index].images = [];
   }
 
-  hasPlaylistSelected() {
-    return this.playlistSelected !== null;
+  selectPlaylist(playlist) {
+    this.playlistSelected = playlist;
+    console.log(this.playlistSelected);
+    // this.playPlaylist(playlist);
+  }
+
+  getPlaylistSelected() {
+    return this.playlistSelected;
   }
 
   playPlaylist(playlist) {
@@ -99,7 +102,6 @@ export class SpotifyApiService {
       context_uri: playlist.uri
     };
     this.http.put(playUrl, JSON.stringify(trackData), this.getHeaders()).subscribe((res: any) => {
-      console.log(res);
       this.getCurrentlyPlaying();
     });
   }
@@ -107,7 +109,6 @@ export class SpotifyApiService {
   playNextTrack() {
     const playNextUrl = 'https://api.spotify.com/v1/me/player/next';
     this.http.post(playNextUrl, null, this.getHeaders()).subscribe((res: any) => {
-      console.log(res);
       this.getCurrentlyPlaying();
     });
   }
@@ -117,7 +118,6 @@ export class SpotifyApiService {
     setTimeout(() => {
       const currentlyPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
       this.http.get(currentlyPlayingUrl, this.getHeaders()).subscribe((res: any) => {
-        console.log(res);
         this.currentTrack = res;
       });
     }, 500);

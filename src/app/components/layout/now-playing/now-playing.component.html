@@ -1,7 +1,18 @@
 <div 
-    *ngIf="spotifyApiService.hasPlaylistSelected()"
+    *ngIf="spotifyApiService.getPlaylistSelected()"
     id='nowPlaying'
     class="lighten content-padding"
+    fxLayout="row"
+    fxLayout.xs="column" 
+    fxFlexFill
+    fxLayoutAlign="flex-start"
 >
-    <p>now-playing works!</p>
+    <div id='nowPlayingImage'>
+        <img [src]="spotifyApiService.getPlaylistSelected().images[0].url" />
+    </div>
+    <div id='nowPlayingInfo'>
+        <div id='nowPlayingInfoPlaylist'>
+            Playlist: {{ spotifyApiService.getPlaylistSelected().name }}
+        </div>
+    </div>
 </div>

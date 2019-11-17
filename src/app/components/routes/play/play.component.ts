@@ -53,6 +53,10 @@ export class PlayComponent implements OnInit {
     }
   }
 
+  fixBrokenImage(index) {
+    console.log(index);
+    this.spotifyApiService.playlistFixBrokenImage(index);
+  }
 
 
 }
