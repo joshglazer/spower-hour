@@ -3,7 +3,10 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Services
-import { SpotifyApiService } from '../../../services/spotify-api/spotify-api.service';
+import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+
+// Misc
+import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +15,8 @@ import { SpotifyApiService } from '../../../services/spotify-api/spotify-api.ser
 })
 export class HomeComponent implements OnInit {
 
+  faSpotify = faSpotify;
+  
   constructor(
     public spotifyApiService: SpotifyApiService,
     private router: Router

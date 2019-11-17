@@ -2,13 +2,34 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+$color-spotify-green: #1DB954;
+
 html, body {
-    font-family: 'Barlow', sans-serif;
+    font-family: 'Public Sans', sans-serif;
     background-color: #000000;
     color: #FFFFFF;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
 }
 
 a {
-    color: #1DB954;
+    color: $color-spotify-green;
     font-weight: bold;
+}
+
+.lighten {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.content-padding {
+    padding: 10px 20px;
+}
+
+/* override material theme */
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+    background-color: $color-spotify-green;
 }

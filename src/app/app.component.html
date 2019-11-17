@@ -1,5 +1,11 @@
-<app-header></app-header>
-
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>
+<div 
+    id='app-container'
+    fxLayout="column"
+    fxFlexFill
+>
+    <app-header class="lighten content-padding"></app-header>
+    <div id='app-content' class="content-padding" fxFlex>
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer class="lighten content-padding"></app-footer>
+</div>

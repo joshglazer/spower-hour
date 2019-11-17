@@ -1,5 +1,22 @@
+<h2>You have connected your Spotify account!</h2>
+<p>Click a playlist to get your spower hour started.</p>
+<ngx-masonry [useImagesLoaded]="true" [options]="{gutter: 10}">
+  <div ngxMasonryItem *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)" class="playlist lighten">
+    <img class='playlistImage' [src]="playlist.images[0].url" [alt]="playlist.name + ' image'"> 
+    <div class='playlistTitle'>
+      <div 
+        fxLayout="row"
+        fxLayout.xs="column" 
+        fxFlexFill
+        fxLayoutAlign="center center"
+      >
+        <div class='playlistTitleWords'>{{ playlist.name }}</div>
+      </div>
+    </div>
+  </div>
+</ngx-masonry>
 
-<mat-vertical-stepper [linear]="true" #stepper [selectedIndex]="currentStep">
+<!-- <mat-vertical-stepper [linear]="true" #stepper [selectedIndex]="currentStep">
   <mat-step [completed]="checkStep(1)">
     <ng-template matStepLabel>Step 1: Choose a Device!</ng-template>
     <button mat-raised-button color="primary" *ngFor="let device of spotifyApiService.devices" (click)="this.setDevice(device)">
@@ -27,14 +44,4 @@
       <div>{{ spotifyApiService.currentTrack.item.name }}</div>
     </div>
   </mat-step>
-</mat-vertical-stepper>
-
-
-<ngx-masonry [useImagesLoaded]="true">
-  <div ngxMasonryItem *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)" class="playlist">
-    <img class='playlistImage' [src]="playlist.images[0].url" [alt]="playlist.name + ' image'"> 
-    <div class='playlistTitle'>
-      <p>{{ playlist.name }}</p>
-    </div>
-  </div>
-</ngx-masonry>
+</mat-vertical-stepper> -->
