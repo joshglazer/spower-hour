@@ -1,5 +1,5 @@
 #nowPlaying {
-    margin-bottom: 2px;
+    margin-bottom: 5px;
     #nowPlayingImage {
         width: 100px;
         height: 100px;
@@ -10,5 +10,9 @@
     }
     #nowPlayingInfo {
         padding-left: 10px;
+    }
+    #nowPlayingCurrentTrack {
+        margin-bottom: 1em;
+
     }
 }

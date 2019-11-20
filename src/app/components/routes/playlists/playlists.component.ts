@@ -34,23 +34,7 @@ export class PlaylistsComponent implements OnInit {
   }
 
   selectPlaylist(playlist) {
-    this.resetCounter();
     this.spotifyApiService.selectPlaylist(playlist);
-  }
-
-  resetCounter(): void {
-    this.counter = 16;
-    this.counterTick();
-  }
-
-  counterTick(): void {
-    this.counter--;
-    if (this.counter <= 0) {
-      this.spotifyApiService.playNextTrack();
-      this.resetCounter();
-    } else {
-      setTimeout(() => { this.counterTick(); }, 1000);
-    }
   }
 
   fixBrokenImage(index) {

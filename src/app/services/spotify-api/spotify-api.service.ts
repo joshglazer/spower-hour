@@ -17,6 +17,8 @@ export class SpotifyApiService {
   playlistSelected = null;
   tracks = [];
   currentTrack = null;
+  counter = null;
+  counterInterval: NodeJS.Timer;
 
   updateMasonryLayout = false;
 
@@ -88,8 +90,8 @@ export class SpotifyApiService {
 
   selectPlaylist(playlist) {
     this.playlistSelected = playlist;
-    console.log(this.playlistSelected);
-    // this.playPlaylist(playlist);
+    this.currentTrack = null;
+    this.playPlaylist(playlist);
   }
 
   getPlaylistSelected() {
@@ -97,6 +99,7 @@ export class SpotifyApiService {
   }
 
   playPlaylist(playlist) {
+    this.resetCounter();
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
     const trackData = {
       context_uri: playlist.uri
@@ -119,8 +122,24 @@ export class SpotifyApiService {
       const currentlyPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
       this.http.get(currentlyPlayingUrl, this.getHeaders()).subscribe((res: any) => {
         this.currentTrack = res;
+        console.log('current track', this.currentTrack);
       });
     }, 500);
+  }
+
+  resetCounter(): void {
+    clearInterval(this.counterInterval);
+    this.counter = 11;
+    this.counterInterval = setInterval(() => { this.counterTick(); }, 1000);
+    // this.counterTick();
+  }
+
+  counterTick(): void {
+    if (this.counter <= 0) {
+      this.playNextTrack();
+      this.resetCounter();
+    }
+    this.counter--;
   }
 
   stop() {
