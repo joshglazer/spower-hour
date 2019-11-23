@@ -18,7 +18,7 @@ export class SpotifyApiService {
   tracks = [];
   currentTrack = null;
   counter = null;
-  counterInterval: NodeJS.Timer;
+  counterInterval: number;
 
   updateMasonryLayout = false;
 
@@ -99,14 +99,21 @@ export class SpotifyApiService {
   }
 
   playPlaylist(playlist) {
-    this.resetCounter();
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
     const trackData = {
       context_uri: playlist.uri
     };
-    this.http.put(playUrl, JSON.stringify(trackData), this.getHeaders()).subscribe((res: any) => {
-      this.getCurrentlyPlaying();
-    });
+    this.http.put(playUrl, JSON.stringify(trackData), this.getHeaders()).subscribe(
+      (res: any) => {
+        this.resetCounter();
+        this.getCurrentlyPlaying();
+      },
+      (error: any) => {
+        if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {
+          alert("NO DEVICE FOUND");
+        }
+      }
+    );
   }
 
   playNextTrack() {
@@ -130,8 +137,7 @@ export class SpotifyApiService {
   resetCounter(): void {
     clearInterval(this.counterInterval);
     this.counter = 11;
-    this.counterInterval = setInterval(() => { this.counterTick(); }, 1000);
-    // this.counterTick();
+    this.counterInterval = window.setInterval(() => { this.counterTick(); }, 1000);
   }
 
   counterTick(): void {
