@@ -20,18 +20,13 @@ export class PlaylistsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.spotifyApiService.isConnected()) {
-      this.spotifyApiService.getDevices();
-      this.spotifyApiService.getPlaylists();
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.spotifyApiService.getDevices();
+    this.spotifyApiService.getPlaylists();
   }
 
   fixBrokenImage(index) {
     console.log(index);
     this.spotifyApiService.playlistFixBrokenImage(index);
   }
-
 
 }
