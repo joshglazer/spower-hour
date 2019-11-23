@@ -1,16 +1,12 @@
-<div style="text-align:center">
-  <h1>
-    {{ title }}
-  </h1>
-</div>
-
-<router-outlet></router-outlet>
-
-<div style="text-align:center">
-  <div>
-    A <a href='https://www.linkedin.com/in/joshglazer/' target='_blank'>Josh Glazer</a> project
-  </div>
-  <div>
-    <a href='https://github.com/joshglazer/spower-hour' target='_blank'>Source code on GitHub</a>
-  </div>
+<div 
+    id='app-container'
+    fxLayout="column"
+    fxFlexFill
+>
+    <app-header></app-header>
+    <div id='app-content' class='content-padding' fxFlex>
+        <router-outlet></router-outlet>
+    </div>
+    <app-now-playing></app-now-playing>
+    <app-footer></app-footer>
 </div>

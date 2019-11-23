@@ -1,43 +1,51 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Material
-import { MatIconModule } from '@angular/material/icon';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatDividerModule } from '@angular/material/divider';
+// Modules
+import { AppRoutingModule } from '@app/app-routing.module';
+import { NgxMasonryModule } from 'ngx-masonry';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
 
 // Components
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { ConnectComponent } from './components/connect/connect.component';
+import { AppComponent } from '@app/app.component';
+// Route Components
+import { HomeComponent } from '@app/components/routes/home/home.component';
+import { ConnectComponent } from '@app/components/routes/connect/connect.component';
+import { NowPlayingComponent } from '@app/components/layout/now-playing/now-playing.component';
+import { DevicesComponent } from '@app/components/routes/devices/devices.component';
+// Layout Components
+import { HeaderComponent } from '@app/components/layout/header/header.component';
+import { FooterComponent } from '@app/components/layout/footer/footer.component';
 
 // Services
-import { SpotifyApiService } from './services/spotify-api/spotify-api.service';
-import { PlayComponent } from './components/play/play.component';
+import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ConnectComponent,
-    PlayComponent
+    PlaylistsComponent,
+    HeaderComponent,
+    FooterComponent,
+    NowPlayingComponent,
+    DevicesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatIconModule,
-    MatStepperModule,
-    MatCardModule,
-    MatGridListModule,
-    MatDividerModule,
+    NgxMasonryModule,
+    MatButtonModule,
+    FontAwesomeModule,
+    FlexLayoutModule,
   ],
   providers: [
     SpotifyApiService

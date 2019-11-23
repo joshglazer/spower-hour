@@ -1,9 +1,11 @@
+// Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 
+// Misc.
 import * as queryString from 'query-string';
-
-import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +19,16 @@ export class SpotifyApiService {
   playlistSelected = null;
   tracks = [];
   currentTrack = null;
+  counter = null;
+  counterLength = environment.counterLength;
+  counterInterval: number;
 
-  constructor(private http: HttpClient) { }
+  updateMasonryLayout = false;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
 
   isConnected(): boolean {
     return this.accessToken != null;
@@ -57,19 +67,19 @@ export class SpotifyApiService {
     const deviceUrl = 'https://api.spotify.com/v1/me/player/devices';
     this.http.get(deviceUrl, this.getHeaders()).subscribe((res: any) => {
       this.devices = res.devices;
-      console.log(this.devices);
     });
   }
-
 
   setDevice(device) {
     const deviceUrl = 'https://api.spotify.com/v1/me/player';
     const deviceData = {
       device_ids: [device.id],
-      play: true,
+      // play: true,
     };
     this.http.put(deviceUrl, JSON.stringify(deviceData), this.getHeaders()).subscribe((res: any) => {
       console.log(`Device set`);
+      // Wait a second due to API lag
+      setTimeout(() => this.playPlaylist(), 1000);
     });
   }
 
@@ -77,30 +87,47 @@ export class SpotifyApiService {
     const playlistsUrl = 'https://api.spotify.com/v1/me/playlists';
     this.http.get(playlistsUrl, this.getHeaders()).subscribe((res: any) => {
       this.playlists = res.items;
-      console.log(this.playlists);
+      this.updateMasonryLayout = true;
     });
+  }
+
+  playlistFixBrokenImage(index) {
+    console.log(this.playlists[index]);
+    this.playlists[index].images = [];
   }
 
   selectPlaylist(playlist) {
     this.playlistSelected = playlist;
-    this.playPlaylist(playlist);
+    this.currentTrack = null;
+    this.playPlaylist();
   }
 
-  playPlaylist(playlist) {
+  getPlaylistSelected() {
+    return this.playlistSelected;
+  }
+
+  playPlaylist() {
+    const playlist = this.getPlaylistSelected();
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
     const trackData = {
       context_uri: playlist.uri
     };
-    this.http.put(playUrl, JSON.stringify(trackData), this.getHeaders()).subscribe((res: any) => {
-      console.log(res);
-      this.getCurrentlyPlaying();
-    });
+    this.http.put(playUrl, JSON.stringify(trackData), this.getHeaders()).subscribe(
+      (res: any) => {
+        this.resetCounter();
+        this.getCurrentlyPlaying();
+      },
+      (error: any) => {
+        if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {
+          this.router.navigate(['/devices']);
+        }
+      }
+    );
   }
 
   playNextTrack() {
     const playNextUrl = 'https://api.spotify.com/v1/me/player/next';
     this.http.post(playNextUrl, null, this.getHeaders()).subscribe((res: any) => {
-      console.log(res);
       this.getCurrentlyPlaying();
     });
   }
@@ -110,10 +137,28 @@ export class SpotifyApiService {
     setTimeout(() => {
       const currentlyPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
       this.http.get(currentlyPlayingUrl, this.getHeaders()).subscribe((res: any) => {
-        console.log(res);
         this.currentTrack = res;
+        console.log('current track', this.currentTrack);
       });
     }, 500);
+  }
+
+  resetCounter(): void {
+    clearInterval(this.counterInterval);
+    this.counter = this.counterLength + 1;
+    this.counterInterval = window.setInterval(() => { this.counterTick(); }, 1000);
+  }
+
+  counterTick(): void {
+    if (this.counter <= 0) {
+      this.playNextTrack();
+      this.resetCounter();
+    }
+    this.counter--;
+  }
+
+  getCounter(): number {
+    return (this.counter > this.counterLength ? this.counterLength : this.counter);
   }
 
   stop() {

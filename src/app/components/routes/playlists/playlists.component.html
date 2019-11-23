@@ -1,5 +1,34 @@
+<h2>You have connected your Spotify account!</h2>
+<p>Click a playlist to get your spower hour started.</p>
+<ngx-masonry [useImagesLoaded]="true" [options]="{gutter: 10}">
+  <div 
+    ngxMasonryItem 
+    *ngFor="let playlist of spotifyApiService.playlists; let i = index" 
+    (click)="spotifyApiService.selectPlaylist(playlist)" 
+    class="playlist lighten"
+    [ngClass]="{'brokenImage': playlist.images.length === 0}"
+  >
+    <img 
+      *ngIf="playlist.images.length"
+      class='playlistImage' 
+      [src]="playlist.images[0].url"
+      [alt]="playlist.name + ' image'"
+      (error)="fixBrokenImage(i)"
+    > 
+    <div class='playlistTitle'>
+      <div 
+        fxLayout="row"
+        fxLayout.xs="column" 
+        fxFlexFill
+        fxLayoutAlign="center center"
+      >
+        <div class='playlistTitleWords'>{{ playlist.name }}</div>
+      </div>
+    </div>
+  </div>
+</ngx-masonry>
 
-<mat-vertical-stepper [linear]="true" #stepper [selectedIndex]="currentStep">
+<!-- <mat-vertical-stepper [linear]="true" #stepper [selectedIndex]="currentStep">
   <mat-step [completed]="checkStep(1)">
     <ng-template matStepLabel>Step 1: Choose a Device!</ng-template>
     <button mat-raised-button color="primary" *ngFor="let device of spotifyApiService.devices" (click)="this.setDevice(device)">
@@ -14,17 +43,7 @@
   </mat-step>
   <mat-step [completed]="checkStep(2)">
     <ng-template matStepLabel>Step 2: Choose a Playlist!</ng-template>
-    <mat-grid-list cols="4">
-      <mat-grid-tile  *ngFor="let playlist of spotifyApiService.playlists" (click)="this.selectPlaylist(playlist)">
-        <mat-card class="playlistCard">
-          <mat-card-header>
-            <mat-card-title>{{ playlist.name }}</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image [src]="playlist.images[0].url" [alt]="playlist.name + ' image'"> 
-        </mat-card>     
-      </mat-grid-tile>
-    </mat-grid-list>
-</mat-step>
+  </mat-step>
   <mat-step [completed]="checkStep(3)">
     <ng-template matStepLabel>Step 3: Start the Spower Hour!</ng-template>
     <div *ngIf="spotifyApiService.currentTrack" class="currentTrack">
@@ -37,4 +56,4 @@
       <div>{{ spotifyApiService.currentTrack.item.name }}</div>
     </div>
   </mat-step>
-</mat-vertical-stepper>
+</mat-vertical-stepper> -->
