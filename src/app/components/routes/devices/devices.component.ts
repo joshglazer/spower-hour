@@ -1,4 +1,8 @@
+// Angular
 import { Component, OnInit } from '@angular/core';
+
+// Services
+import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
 
 @Component({
   selector: 'app-devices',
@@ -7,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DevicesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public spotifyApiService: SpotifyApiService,
+  ) { }
 
   ngOnInit() {
   }

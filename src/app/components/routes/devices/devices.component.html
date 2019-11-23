@@ -1,1 +1,9 @@
-<p>devices works!</p>
+<h2>Choose a Device</h2>
+<p>Your spower hour has to play through a device that has the spotify app installed and running.</p>
+<button mat-raised-button color="primary" *ngFor="let device of spotifyApiService.devices" (click)="this.spotifyApiService.setDevice(device);">
+    {{ device.name }}
+</button>
+<p>Don't see your device? Open spotify on that device and click here to refresh the list above.</p>
+<button mat-raised-button color="primary" (click)="spotifyApiService.getDevices()">
+    Refresh
+</button>

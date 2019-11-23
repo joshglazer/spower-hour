@@ -73,10 +73,11 @@ export class SpotifyApiService {
     const deviceUrl = 'https://api.spotify.com/v1/me/player';
     const deviceData = {
       device_ids: [device.id],
-      play: true,
+      // play: true,
     };
     this.http.put(deviceUrl, JSON.stringify(deviceData), this.getHeaders()).subscribe((res: any) => {
       console.log(`Device set`);
+      this.playPlaylist();
     });
   }
 
@@ -96,14 +97,15 @@ export class SpotifyApiService {
   selectPlaylist(playlist) {
     this.playlistSelected = playlist;
     this.currentTrack = null;
-    this.playPlaylist(playlist);
+    this.playPlaylist();
   }
 
   getPlaylistSelected() {
     return this.playlistSelected;
   }
 
-  playPlaylist(playlist) {
+  playPlaylist() {
+    const playlist = this.getPlaylistSelected();
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
     const trackData = {
       context_uri: playlist.uri

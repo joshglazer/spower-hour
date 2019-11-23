@@ -4,7 +4,7 @@
   <div 
     ngxMasonryItem 
     *ngFor="let playlist of spotifyApiService.playlists; let i = index" 
-    (click)="this.selectPlaylist(playlist)" 
+    (click)="spotifyApiService.selectPlaylist(playlist)" 
     class="playlist lighten"
     [ngClass]="{'brokenImage': playlist.images.length === 0}"
   >

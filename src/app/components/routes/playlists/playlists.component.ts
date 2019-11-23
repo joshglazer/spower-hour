@@ -28,15 +28,6 @@ export class PlaylistsComponent implements OnInit {
     }
   }
 
-  setDevice(device) {
-    this.spotifyApiService.setDevice(2);
-    console.log(device);
-  }
-
-  selectPlaylist(playlist) {
-    this.spotifyApiService.selectPlaylist(playlist);
-  }
-
   fixBrokenImage(index) {
     console.log(index);
     this.spotifyApiService.playlistFixBrokenImage(index);
