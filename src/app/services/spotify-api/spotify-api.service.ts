@@ -1,9 +1,11 @@
+// Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import * as queryString from 'query-string';
 
-import { environment } from '../../../environments/environment';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,10 @@ export class SpotifyApiService {
 
   updateMasonryLayout = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
 
   isConnected(): boolean {
     return this.accessToken != null;
@@ -110,7 +115,7 @@ export class SpotifyApiService {
       },
       (error: any) => {
         if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {
-          alert("NO DEVICE FOUND");
+          this.router.navigate(['/devices']);
         }
       }
     );

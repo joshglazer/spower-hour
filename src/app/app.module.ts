@@ -13,15 +13,18 @@ import { MatButtonModule } from '@angular/material/button';
 
 // Components
 import { AppComponent } from '@app/app.component';
+// Route Components
 import { HomeComponent } from '@app/components/routes/home/home.component';
 import { ConnectComponent } from '@app/components/routes/connect/connect.component';
+import { NowPlayingComponent } from '@app/components/layout/now-playing/now-playing.component';
+import { DevicesComponent } from '@app/components/routes/devices/devices.component';
+// Layout Components
+import { HeaderComponent } from '@app/components/layout/header/header.component';
+import { FooterComponent } from '@app/components/layout/footer/footer.component';
 
 // Services
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
 import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.component';
-import { HeaderComponent } from '@app/components/layout/header/header.component';
-import { FooterComponent } from '@app/components/layout/footer/footer.component';
-import { NowPlayingComponent } from './components/layout/now-playing/now-playing.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { NowPlayingComponent } from './components/layout/now-playing/now-playing
     PlaylistsComponent,
     HeaderComponent,
     FooterComponent,
-    NowPlayingComponent
+    NowPlayingComponent,
+    DevicesComponent
   ],
   imports: [
     BrowserModule,
