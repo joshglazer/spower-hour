@@ -2,10 +2,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-
-import * as queryString from 'query-string';
-
 import { environment } from '@environments/environment';
+
+// Misc.
+import * as queryString from 'query-string';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,7 @@ export class SpotifyApiService {
   tracks = [];
   currentTrack = null;
   counter = null;
+  counterLength = environment.counterLength;
   counterInterval: number;
 
   updateMasonryLayout = false;
@@ -77,7 +78,8 @@ export class SpotifyApiService {
     };
     this.http.put(deviceUrl, JSON.stringify(deviceData), this.getHeaders()).subscribe((res: any) => {
       console.log(`Device set`);
-      this.playPlaylist();
+      // Wait a second due to API lag
+      setTimeout(() => this.playPlaylist(), 1000);
     });
   }
 
@@ -143,7 +145,7 @@ export class SpotifyApiService {
 
   resetCounter(): void {
     clearInterval(this.counterInterval);
-    this.counter = 11;
+    this.counter = this.counterLength + 1;
     this.counterInterval = window.setInterval(() => { this.counterTick(); }, 1000);
   }
 
@@ -153,6 +155,10 @@ export class SpotifyApiService {
       this.resetCounter();
     }
     this.counter--;
+  }
+
+  getCounter(): number {
+    return (this.counter > this.counterLength ? this.counterLength : this.counter);
   }
 
   stop() {
