@@ -16,7 +16,7 @@ import { AppComponent } from '@app/app.component';
 // Route Components
 import { HomeComponent } from '@app/components/routes/home/home.component';
 import { ConnectComponent } from '@app/components/routes/connect/connect.component';
-import { NowPlayingComponent } from '@app/components/layout/now-playing/now-playing.component';
+import { NowPlayingFooterComponent } from '@app/components/layout/now-playing-footer/now-playing-footer.component';
 import { DevicesComponent } from '@app/components/routes/devices/devices.component';
 // Layout Components
 import { HeaderComponent } from '@app/components/layout/header/header.component';
@@ -34,7 +34,7 @@ import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.c
     PlaylistsComponent,
     HeaderComponent,
     FooterComponent,
-    NowPlayingComponent,
+    NowPlayingFooterComponent,
     DevicesComponent
   ],
   imports: [

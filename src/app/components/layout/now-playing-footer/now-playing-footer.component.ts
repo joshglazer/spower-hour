@@ -5,11 +5,11 @@ import { Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
 
 @Component({
-  selector: 'app-now-playing',
-  templateUrl: './now-playing.component.html',
-  styleUrls: ['./now-playing.component.scss']
+  selector: 'app-now-playing-footer',
+  templateUrl: './now-playing-footer.component.html',
+  styleUrls: ['./now-playing-footer.component.scss']
 })
-export class NowPlayingComponent implements OnInit {
+export class NowPlayingFooterComponent implements OnInit {
 
   constructor(
     public spotifyApiService: SpotifyApiService,
