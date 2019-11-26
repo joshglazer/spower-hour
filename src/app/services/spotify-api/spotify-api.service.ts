@@ -116,6 +116,7 @@ export class SpotifyApiService {
       (res: any) => {
         this.resetCounter();
         this.getCurrentlyPlaying();
+        this.router.navigate(['/now-playing']);
       },
       (error: any) => {
         if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {

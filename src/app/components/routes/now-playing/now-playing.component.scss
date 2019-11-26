@@ -1,0 +1,11 @@
+::ng-deep #nowPlayingInfo-page {
+    text-align: center;
+     #nowPlayingImage {
+        margin-top: 1em;
+        img {
+            width: 50vh;
+            object-fit: cover;
+            max-width: 100%;
+        }
+    }
+}

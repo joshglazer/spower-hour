@@ -1,0 +1,8 @@
+#nowPlaying {
+    margin-bottom: 5px;
+    ::ng-deep #nowPlayingInfo-footer #nowPlayingImage img {
+        width: 100px;
+        object-fit: cover;
+        max-width: 100%;
+    }
+}
