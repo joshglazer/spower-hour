@@ -16,11 +16,13 @@ import { AppComponent } from '@app/app.component';
 // Route Components
 import { HomeComponent } from '@app/components/routes/home/home.component';
 import { ConnectComponent } from '@app/components/routes/connect/connect.component';
-import { NowPlayingFooterComponent } from '@app/components/layout/now-playing-footer/now-playing-footer.component';
 import { DevicesComponent } from '@app/components/routes/devices/devices.component';
+import { NowPlayingComponent } from './components/routes/now-playing/now-playing.component';
 // Layout Components
 import { HeaderComponent } from '@app/components/layout/header/header.component';
 import { FooterComponent } from '@app/components/layout/footer/footer.component';
+import { NowPlayingFooterComponent } from '@app/components/layout/now-playing-footer/now-playing-footer.component';
+import { NowPlayingInfoComponent } from './components/layout/now-playing-info/now-playing-info.component';
 
 // Services
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
@@ -35,7 +37,9 @@ import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.c
     HeaderComponent,
     FooterComponent,
     NowPlayingFooterComponent,
-    DevicesComponent
+    DevicesComponent,
+    NowPlayingComponent,
+    NowPlayingInfoComponent
   ],
   imports: [
     BrowserModule,

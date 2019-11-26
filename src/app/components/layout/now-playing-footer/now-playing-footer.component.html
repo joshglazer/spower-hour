@@ -1,40 +1,7 @@
 <div 
-    *ngIf="spotifyApiService.getPlaylistSelected()"
+    *ngIf="isVisible()"
     id='nowPlaying'
     class="lighten content-padding"
 >
-    <div
-        fxLayout="row"
-        fxLayout.xs="column" 
-        fxFlexFill
-        fxLayoutAlign="flex-start"
-    >
-        <div id='nowPlayingImage'>
-            <img *ngIf="spotifyApiService.currentTrack; else playlistImage" [src]="spotifyApiService.currentTrack.item.album.images[0].url" />
-            <ng-template #playlistImage>
-                <img [src]="spotifyApiService.getPlaylistSelected().images[0].url" />
-            </ng-template>
-        </div>
-        <div id='nowPlayingInfo'>
-            <div *ngIf="spotifyApiService.currentTrack" id="nowPlayingCurrentTrack">
-                <div>
-                    <strong>Song:</strong>
-                    {{ spotifyApiService.currentTrack.item.name }}
-                </div>
-                <div>
-                    <strong>Artist:</strong>
-                    <ng-container *ngFor="let artist of spotifyApiService.currentTrack.item.artists; last as isLast">
-                        {{ artist.name }}<ng-container *ngIf="!isLast">, </ng-container>
-                    </ng-container>
-                </div>
-                <div>
-                    <strong>Next Track: </strong>
-                    {{ spotifyApiService.getCounter() }}
-                </div>
-            </div>
-            <div id='nowPlayingInfoPlaylist'>
-                <strong>Playlist:</strong> {{ spotifyApiService.getPlaylistSelected().name }}
-            </div>
-        </div>
-    </div>
+    <app-now-playing-info layout='footer'></app-now-playing-info>
 </div>

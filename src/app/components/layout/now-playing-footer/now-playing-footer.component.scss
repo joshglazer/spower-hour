@@ -1,18 +1,8 @@
 #nowPlaying {
     margin-bottom: 5px;
-    #nowPlayingImage {
+    ::ng-deep #nowPlayingInfo-footer #nowPlayingImage img {
         width: 100px;
-        height: 100px;
-        img {
-            object-fit: cover;
-            max-width: 100%;
-        }
-    }
-    #nowPlayingInfo {
-        padding-left: 10px;
-    }
-    #nowPlayingCurrentTrack {
-        margin-bottom: 1em;
-
+        object-fit: cover;
+        max-width: 100%;
     }
 }
