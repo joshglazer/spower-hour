@@ -1,5 +1,5 @@
 <h2>You have connected your Spotify account!</h2>
-<p>Click a playlist to get your spower hour started.</p>
+<p>Click a playlist to get your Spower Hour started.</p>
 <ngx-masonry [useImagesLoaded]="true" [options]="{gutter: 10}">
   <div 
     ngxMasonryItem 
@@ -27,33 +27,3 @@
     </div>
   </div>
 </ngx-masonry>
-
-<!-- <mat-vertical-stepper [linear]="true" #stepper [selectedIndex]="currentStep">
-  <mat-step [completed]="checkStep(1)">
-    <ng-template matStepLabel>Step 1: Choose a Device!</ng-template>
-    <button mat-raised-button color="primary" *ngFor="let device of spotifyApiService.devices" (click)="this.setDevice(device)">
-      {{ device.name }}
-    </button>
-    <mat-divider></mat-divider>
-    <div>Don't see your device? Open spotify on that device and click here to refresh the list above.</div>
-    <button mat-raised-button color="primary" (click)="spotifyApiService.getDevices()">
-      <mat-icon aria-hidden="false" aria-label="Refresh">refresh</mat-icon>
-      Refresh
-    </button>
-  </mat-step>
-  <mat-step [completed]="checkStep(2)">
-    <ng-template matStepLabel>Step 2: Choose a Playlist!</ng-template>
-  </mat-step>
-  <mat-step [completed]="checkStep(3)">
-    <ng-template matStepLabel>Step 3: Start the Spower Hour!</ng-template>
-    <div *ngIf="spotifyApiService.currentTrack" class="currentTrack">
-      <div class="currentTrackImage">
-        <img [src]="spotifyApiService.currentTrack.item.album.images[0].url" />
-        <div class="currentTrackCounter" *ngIf="counter">
-          {{ counter }}
-        </div>      
-      </div>
-      <div>{{ spotifyApiService.currentTrack.item.name }}</div>
-    </div>
-  </mat-step>
-</mat-vertical-stepper> -->
