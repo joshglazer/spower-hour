@@ -144,6 +144,10 @@ export class SpotifyApiService {
     }, 500);
   }
 
+  getCurrentTrack() {
+    return this.currentTrack;
+  }
+
   resetCounter(): void {
     clearInterval(this.counterInterval);
     this.counter = this.counterLength + 1;

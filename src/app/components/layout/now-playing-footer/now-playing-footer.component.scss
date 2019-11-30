@@ -1,8 +1,15 @@
 #nowPlaying {
     margin-bottom: 5px;
-    ::ng-deep #nowPlayingInfo-footer #nowPlayingImage img {
-        width: 100px;
-        object-fit: cover;
-        max-width: 100%;
+    ::ng-deep #nowPlayingInfo-footer {
+        .nowPlayingImage img {
+            width: 100px;
+            object-fit: cover;
+            max-width: 100%;
+        }
+        .nowPlayingCounter {
+            font-size: 90px;
+            text-shadow: 5px 5px 5px #000000;
+
+        }
     }
 }

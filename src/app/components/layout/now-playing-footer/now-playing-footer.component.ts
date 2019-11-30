@@ -21,7 +21,7 @@ export class NowPlayingFooterComponent implements OnInit {
   }
 
   isVisible() {
-    return (this.router.url !== '/now-playing' && this.spotifyApiService.getPlaylistSelected());
+    return (this.router.url !== '/now-playing' && this.spotifyApiService.getCurrentTrack());
   }
 
 }

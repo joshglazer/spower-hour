@@ -1,35 +1,29 @@
 <div
     [fxLayout]="layout == 'page' ? 'column' : 'row'"
-    fxLayout.xs="column" 
+    fxLayout.xs="column"
     fxFlexFill
     fxLayoutAlign="flex-start"
+    fxLayoutAlign.xs="center center"
     fxLayoutGap="1em"
+    ngClass.xs="nowPlayingTextCenter"
     id="nowPlayingInfo-{{ layout }}"
 >
-    <div id='nowPlayingImage'>
-        <img *ngIf="spotifyApiService.currentTrack; else playlistImage" [src]="spotifyApiService.currentTrack.item.album.images[0].url" />
-        <ng-template #playlistImage>
-            <img [src]="spotifyApiService.getPlaylistSelected().images[0].url" />
-        </ng-template>
+    <div class='nowPlayingImage'>
+        <img *ngIf="spotifyApiService.currentTrack" [src]="spotifyApiService.currentTrack.item.album.images[0].url" />
+        <div class='nowPlayingCounter'>{{ spotifyApiService.getCounter() }}</div>
     </div>
-    <div id='nowPlayingTrackInfo'>
-        <div *ngIf="spotifyApiService.currentTrack" id="nowPlayingCurrentTrack">
-            <div>
-                <strong>Song:</strong>
+    <div class='nowPlayingTrackInfo'>
+        <div *ngIf="spotifyApiService.currentTrack" class="nowPlayingCurrentTrack">
+            <div class='nowPlayingTrackInfoTrack'>
                 {{ spotifyApiService.currentTrack.item.name }}
             </div>
-            <div>
-                <strong>Artist:</strong>
+            <div class='nowPlayingTrackInfoArtist'>
                 <ng-container *ngFor="let artist of spotifyApiService.currentTrack.item.artists; last as isLast">
                     {{ artist.name }}<ng-container *ngIf="!isLast">, </ng-container>
                 </ng-container>
             </div>
-            <div>
-                <strong>Next Track: </strong>
-                {{ spotifyApiService.getCounter() }}
-            </div>
         </div>
-        <div id='nowPlayingInfoPlaylist'>
+        <div class='nowPlayingInfoPlaylist' [fxShow.xs]="layout == 'page' ? true : false">
             <strong>Playlist:</strong> {{ spotifyApiService.getPlaylistSelected().name }}
         </div>
     </div>

@@ -1,4 +1,8 @@
+// Angular
 import { Component, OnInit } from '@angular/core';
+
+// Services
+import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
 
 @Component({
   selector: 'app-now-playing',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NowPlayingComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private spotifyApiService: SpotifyApiService
+  ) { }
 
   ngOnInit() {
   }
 
+  isVisible() {
+    return this.spotifyApiService.getCurrentTrack();
+  }
 }
