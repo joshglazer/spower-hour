@@ -1,11 +1,17 @@
 ::ng-deep #nowPlayingInfo-page {
     text-align: center;
-     #nowPlayingImage {
+     .nowPlayingImage {
         margin-top: 1em;
+        position: relative;
         img {
-            width: 50vh;
+            height: calc(width);
+            max-width: 50vw;
+            max-height: 50vh;
             object-fit: cover;
-            max-width: 100%;
+        }
+        .nowPlayingCounter {
+            font-size: 40vmin;
+            text-shadow: 10px 10px 10px #000000;
         }
     }
 }

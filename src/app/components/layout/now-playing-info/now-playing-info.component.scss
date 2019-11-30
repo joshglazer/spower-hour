@@ -1,3 +1,23 @@
-#nowPlayingCurrentTrack {
-    margin-bottom: 1em;
+.nowPlayingTrackInfoTrack {
+    font-weight: bold;
+}
+
+.nowPlayingInfoPlaylist {
+    margin-top: 1em;
+}
+
+.nowPlayingImage {
+    position: relative;
+    .nowPlayingCounter {
+        text-align: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+.nowPlayingTextCenter {
+    text-align: center;
 }
