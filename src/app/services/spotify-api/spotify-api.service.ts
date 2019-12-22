@@ -25,6 +25,8 @@ export class SpotifyApiService {
 
   updateMasonryLayout = false;
 
+  private errorMessage: string;
+
   constructor(
     private http: HttpClient,
     private router: Router
@@ -171,5 +173,14 @@ export class SpotifyApiService {
     this.http.put(stopUrl, null, this.getHeaders()).subscribe((res: any) => {
       console.log(res);
     });
+  }
+
+  setError(errorMessage) {
+    this.errorMessage = errorMessage;
+    this.router.navigate(['/error']);
+  }
+
+  getErrorMessage() {
+    return this.errorMessage;
   }
 }

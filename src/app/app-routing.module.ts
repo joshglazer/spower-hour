@@ -11,6 +11,7 @@ import { ConnectComponent } from './components/routes/connect/connect.component'
 import { PlaylistsComponent } from './components/routes/playlists/playlists.component';
 import { DevicesComponent } from './components/routes/devices/devices.component';
 import { NowPlayingComponent } from './components/routes/now-playing/now-playing.component';
+import { ErrorComponent } from './components/routes/error/error.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,12 @@ const routes: Routes = [
   {
     path: 'now-playing',
     component: NowPlayingComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'error',
+    component: ErrorComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard]
   },

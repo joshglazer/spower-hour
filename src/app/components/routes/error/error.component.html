@@ -1,0 +1,12 @@
+<h2>
+    Oh No! Something Went Wrong.....
+</h2>
+<p>
+    {{ spotifyApiService.getErrorMessage() }}
+</p>
+<p>
+    <button mat-raised-button color="primary" [routerLink]="['/']">
+        <fa-icon [icon]='faSync'></fa-icon>
+        Start Over
+    </button>
+</p>
