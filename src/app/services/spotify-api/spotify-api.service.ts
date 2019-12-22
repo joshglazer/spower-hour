@@ -1,6 +1,6 @@
 // Angular
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 
@@ -25,7 +25,7 @@ export class SpotifyApiService {
 
   updateMasonryLayout = false;
 
-  private errorMessage: string;
+  private error: HttpErrorResponse;
 
   constructor(
     private http: HttpClient,
@@ -175,12 +175,13 @@ export class SpotifyApiService {
     });
   }
 
-  setError(errorMessage) {
-    this.errorMessage = errorMessage;
+  setError(error: HttpErrorResponse): void {
+    this.error = error;
     this.router.navigate(['/error']);
   }
 
-  getErrorMessage() {
-    return this.errorMessage;
+  getError(): HttpErrorResponse {
+    return this.error;
   }
+
 }

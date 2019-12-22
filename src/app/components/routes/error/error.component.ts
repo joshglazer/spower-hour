@@ -6,6 +6,7 @@ import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service
 
 // Misc
 import { faSync } from '@fortawesome/free-solid-svg-icons';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -16,12 +17,22 @@ import { faSync } from '@fortawesome/free-solid-svg-icons';
 export class ErrorComponent implements OnInit {
 
   faSync = faSync;
+  error: HttpErrorResponse;
 
   constructor(
-    public spotifyApiService: SpotifyApiService
+    private spotifyApiService: SpotifyApiService
   ) { }
 
   ngOnInit() {
+    this.error = this.spotifyApiService.getError();
+  }
+
+  getErrorMessage() {
+    return this.error.error.error.message;
+  }
+
+  getErrorDetails() {
+    return JSON.stringify(this.error);
   }
 
 }
