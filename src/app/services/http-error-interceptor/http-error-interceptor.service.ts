@@ -22,14 +22,8 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
      .pipe(
        retry(1),
        catchError((error: HttpErrorResponse) => {
-        let errorMessage = '';
-        if (error.error && error.error.error && error.error.error.message) {
-          errorMessage = error.error.error.message;
-        }
-        if (errorMessage) {
-          this.spotifyApiService.setError(errorMessage);
-        }
-        return throwError(error);
+          this.spotifyApiService.setError(error);
+          return throwError(error);
       })
     );
   }

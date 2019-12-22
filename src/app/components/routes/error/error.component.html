@@ -2,7 +2,7 @@
     Oh No! Something Went Wrong.....
 </h2>
 <p>
-    {{ spotifyApiService.getErrorMessage() }}
+    {{ getErrorMessage() }}
 </p>
 <p>
     <button mat-raised-button color="primary" [routerLink]="['/']">
@@ -10,3 +10,6 @@
         Start Over
     </button>
 </p>
+<hr />
+<h3>Details</h3>
+<p> {{ getErrorDetails() }}</p>
