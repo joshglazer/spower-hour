@@ -1,7 +1,7 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Modules
@@ -27,6 +27,8 @@ import { NowPlayingInfoComponent } from './components/layout/now-playing-info/no
 // Services
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
 import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.component';
+import { ErrorComponent } from './components/routes/error/error.component';
+import { HttpErrorInterceptorService } from './services/http-error-interceptor/http-error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.c
     NowPlayingFooterComponent,
     DevicesComponent,
     NowPlayingComponent,
-    NowPlayingInfoComponent
+    NowPlayingInfoComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,12 @@ import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.c
     FlexLayoutModule,
   ],
   providers: [
-    SpotifyApiService
+    SpotifyApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
