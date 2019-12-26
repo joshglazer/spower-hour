@@ -17,7 +17,9 @@ import { AppComponent } from '@app/app.component';
 import { HomeComponent } from '@app/components/routes/home/home.component';
 import { ConnectComponent } from '@app/components/routes/connect/connect.component';
 import { DevicesComponent } from '@app/components/routes/devices/devices.component';
+import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.component';
 import { NowPlayingComponent } from './components/routes/now-playing/now-playing.component';
+import { ErrorComponent } from './components/routes/error/error.component';
 // Layout Components
 import { HeaderComponent } from '@app/components/layout/header/header.component';
 import { FooterComponent } from '@app/components/layout/footer/footer.component';
@@ -26,9 +28,8 @@ import { NowPlayingInfoComponent } from './components/layout/now-playing-info/no
 
 // Services
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
-import { PlaylistsComponent } from '@app/components/routes/playlists/playlists.component';
-import { ErrorComponent } from './components/routes/error/error.component';
-import { HttpErrorInterceptorService } from './services/http-error-interceptor/http-error-interceptor.service';
+import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
+import { HttpErrorInterceptorService } from '@app/services/http-error-interceptor/http-error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -56,10 +57,11 @@ import { HttpErrorInterceptorService } from './services/http-error-interceptor/h
   ],
   providers: [
     SpotifyApiService,
+    SpowerHourService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
-      multi: true
+      multi: true,
     }
   ],
   bootstrap: [AppComponent]

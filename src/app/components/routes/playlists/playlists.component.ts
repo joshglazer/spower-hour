@@ -16,16 +16,12 @@ export class PlaylistsComponent implements OnInit {
 
   constructor(
     public spotifyApiService: SpotifyApiService,
-    private router: Router
   ) { }
 
   ngOnInit() {
-    this.spotifyApiService.getDevices();
-    this.spotifyApiService.getPlaylists();
   }
 
   fixBrokenImage(index) {
-    console.log(index);
     this.spotifyApiService.playlistFixBrokenImage(index);
   }
 

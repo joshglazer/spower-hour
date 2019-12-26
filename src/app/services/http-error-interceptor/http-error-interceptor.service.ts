@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
 // Services
-import { SpotifyApiService } from '../spotify-api/spotify-api.service';
+import { SpowerHourService } from '../spower-hour/spower-hour.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ import { SpotifyApiService } from '../spotify-api/spotify-api.service';
 export class HttpErrorInterceptorService implements HttpInterceptor {
 
   constructor(
-    private spotifyApiService: SpotifyApiService,
+    private spowerHourService: SpowerHourService,
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -22,7 +22,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
      .pipe(
        retry(1),
        catchError((error: HttpErrorResponse) => {
-          this.spotifyApiService.setError(error);
+          this.spowerHourService.setError(error);
           return throwError(error);
       })
     );

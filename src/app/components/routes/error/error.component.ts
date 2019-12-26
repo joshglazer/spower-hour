@@ -1,13 +1,13 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Services
-import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 
 // Misc
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { HttpErrorResponse } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-error',
@@ -20,11 +20,15 @@ export class ErrorComponent implements OnInit {
   error: HttpErrorResponse;
 
   constructor(
-    private spotifyApiService: SpotifyApiService
+    private spowerHourService: SpowerHourService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.error = this.spotifyApiService.getError();
+    this.error = this.spowerHourService.getError();
+    if (!this.error) {
+      this.router.navigate(['']);
+    }
   }
 
   getErrorMessage() {
@@ -33,6 +37,11 @@ export class ErrorComponent implements OnInit {
 
   getErrorDetails() {
     return JSON.stringify(this.error);
+  }
+
+  startOver() {
+    this.spowerHourService.resetSpotifyData();
+    this.router.navigate(['']);
   }
 
 }

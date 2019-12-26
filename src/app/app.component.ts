@@ -17,9 +17,9 @@ export class AppComponent {
     private googleAnalyticsTrackerService: GoogleAnalyticsTrackerService
   ) {
     this.router.events.subscribe(event => {
-     if (event instanceof NavigationEnd) {
-       this.googleAnalyticsTrackerService.trackPage(event.urlAfterRedirects);
-     }
-   });
- }
+      if (event instanceof NavigationEnd) {
+        this.googleAnalyticsTrackerService.trackPage(event.urlAfterRedirects);
+      }
+    });
+  }
 }
