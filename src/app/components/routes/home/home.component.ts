@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.spotifyApiService.isConnected()) {
-      this.router.navigate(['/play']);
+      this.router.navigate(['/playlists']);
     }
 
   }

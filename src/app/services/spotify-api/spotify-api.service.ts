@@ -13,7 +13,11 @@ import * as queryString from 'query-string';
 
 export class SpotifyApiService {
 
+  // constants
+  ACCESS_TOKEN_KEY = 'access_token';
+
   accessToken: string = null;
+  profile = null;
   devices = [];
   playlists = [];
   playlistSelected = null;
@@ -25,15 +29,13 @@ export class SpotifyApiService {
 
   updateMasonryLayout = false;
 
-  private error: HttpErrorResponse;
-
   constructor(
     private http: HttpClient,
     private router: Router
-  ) { }
+  ) {}
 
   isConnected(): boolean {
-    return this.accessToken != null;
+    return this.accessToken !== null;
   }
 
   getHeaders() {
@@ -57,12 +59,37 @@ export class SpotifyApiService {
   processConnect(location): boolean {
     const parsedHash: any = queryString.parse(location.hash);
     if (parsedHash.access_token) {
-      this.accessToken = parsedHash.access_token;
+      this.initializeSpotifyData(parsedHash.access_token);
       return true;
     } else {
       this.accessToken = null;
       return false;
     }
+  }
+
+  checkToken() {
+    // If a spotify access token is stored in the browser, attempt to log the user in
+    const accessToken = localStorage.getItem(this.ACCESS_TOKEN_KEY);
+    if (accessToken !== null && this.accessToken === null) {
+      this.initializeSpotifyData(accessToken);
+    }
+  }
+
+  initializeSpotifyData(accessToken) {
+    localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);;
+    this.accessToken = accessToken;
+    this.getProfile();
+    this.getDevices();
+    this.getPlaylists();
+    return;
+  }
+
+  getProfile(): void {
+    const deviceUrl = 'https://api.spotify.com/v1/me';
+    this.http.get(deviceUrl, this.getHeaders()).subscribe((res: any) => {
+      console.log(res);
+      this.profile = res;
+    });
   }
 
   getDevices() {
@@ -79,7 +106,6 @@ export class SpotifyApiService {
       // play: true,
     };
     this.http.put(deviceUrl, JSON.stringify(deviceData), this.getHeaders()).subscribe((res: any) => {
-      console.log(`Device set`);
       // Wait a second due to API lag
       setTimeout(() => this.playPlaylist(), 1000);
     });
@@ -89,12 +115,11 @@ export class SpotifyApiService {
     const playlistsUrl = 'https://api.spotify.com/v1/me/playlists';
     this.http.get(playlistsUrl, this.getHeaders()).subscribe((res: any) => {
       this.playlists = res.items;
-      this.updateMasonryLayout = true;
+      // this.updateMasonryLayout = true;
     });
   }
 
   playlistFixBrokenImage(index) {
-    console.log(this.playlists[index]);
     this.playlists[index].images = [];
   }
 
@@ -141,7 +166,6 @@ export class SpotifyApiService {
       const currentlyPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
       this.http.get(currentlyPlayingUrl, this.getHeaders()).subscribe((res: any) => {
         this.currentTrack = res;
-        console.log('current track', this.currentTrack);
       });
     }, 500);
   }
@@ -150,10 +174,12 @@ export class SpotifyApiService {
     return this.currentTrack;
   }
 
-  resetCounter(): void {
+  resetCounter(playNext = true): void {
     clearInterval(this.counterInterval);
-    this.counter = this.counterLength + 1;
-    this.counterInterval = window.setInterval(() => { this.counterTick(); }, 1000);
+    if (playNext) {
+      this.counter = this.counterLength + 1;
+      this.counterInterval = window.setInterval(() => { this.counterTick(); }, 1000);
+    }
   }
 
   counterTick(): void {
@@ -173,15 +199,6 @@ export class SpotifyApiService {
     this.http.put(stopUrl, null, this.getHeaders()).subscribe((res: any) => {
       console.log(res);
     });
-  }
-
-  setError(error: HttpErrorResponse): void {
-    this.error = error;
-    this.router.navigate(['/error']);
-  }
-
-  getError(): HttpErrorResponse {
-    return this.error;
   }
 
 }

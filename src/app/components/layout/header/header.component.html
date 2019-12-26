@@ -3,7 +3,7 @@
     class="lighten content-padding"
     fxLayout
     fxLayout.xs="column"
-    fxLayoutAlign="space-between"
+    fxLayoutAlign="space-between center"
 >
     <h1>
         <!-- <fa-icon [icon]="faSpotify"></fa-icon>
@@ -11,4 +11,14 @@
         <img id='logo' src='/assets/images/spower-hour-logo.png' />
         Spower Hour
     </h1>
+    <div *ngIf="spotifyApiService.isConnected() && spotifyApiService.profile" id='userInfo'
+    fxLayout
+    fxLayout.xs="rows"
+>
+        <img *ngIf="spotifyApiService.profile.images.length" [src]='spotifyApiService.profile.images[0].url'>
+        <div>
+                {{ spotifyApiService.profile.display_name }}<br />
+                <a href='javascript: void(0)' (click)="spowerHourService.logout()">Logout</a>
+        </div>
+    </div>
 </div>

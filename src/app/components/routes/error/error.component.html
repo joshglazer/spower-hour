@@ -5,7 +5,7 @@
     {{ getErrorMessage() }}
 </p>
 <p>
-    <button mat-raised-button color="primary" [routerLink]="['/']">
+    <button mat-raised-button color="primary" (click)="startOver()">
         <fa-icon [icon]='faSync'></fa-icon>
         Start Over
     </button>
