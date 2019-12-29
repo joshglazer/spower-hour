@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 // Services
-import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 
 @Component({
   selector: 'app-now-playing-info',
@@ -13,7 +13,7 @@ export class NowPlayingInfoComponent implements OnInit {
   @Input() layout: string;
 
   constructor(
-    public spotifyApiService: SpotifyApiService,
+    public spowerHourService: SpowerHourService
   ) { }
 
   ngOnInit() {

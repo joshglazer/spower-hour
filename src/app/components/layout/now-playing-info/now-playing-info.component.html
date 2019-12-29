@@ -9,22 +9,22 @@
     id="nowPlayingInfo-{{ layout }}"
 >
     <div class='nowPlayingImage'>
-        <img *ngIf="spotifyApiService.currentTrack" [src]="spotifyApiService.currentTrack.item.album.images[0].url" />
-        <div class='nowPlayingCounter'>{{ spotifyApiService.getCounter() }}</div>
+        <img *ngIf="spowerHourService.currentTrack" [src]="spowerHourService.currentTrack.item.album.images[0].url" />
+        <div class='nowPlayingCounter'>{{ spowerHourService.getCounter() }}</div>
     </div>
     <div class='nowPlayingTrackInfo'>
-        <div *ngIf="spotifyApiService.currentTrack" class="nowPlayingCurrentTrack">
+        <div *ngIf="spowerHourService.currentTrack" class="nowPlayingCurrentTrack">
             <div class='nowPlayingTrackInfoTrack'>
-                {{ spotifyApiService.currentTrack.item.name }}
+                {{ spowerHourService.currentTrack.item.name }}
             </div>
             <div class='nowPlayingTrackInfoArtist'>
-                <ng-container *ngFor="let artist of spotifyApiService.currentTrack.item.artists; last as isLast">
+                <ng-container *ngFor="let artist of spowerHourService.currentTrack.item.artists; last as isLast">
                     {{ artist.name }}<ng-container *ngIf="!isLast">, </ng-container>
                 </ng-container>
             </div>
         </div>
         <div class='nowPlayingInfoPlaylist' [fxShow.xs]="layout == 'page' ? true : false">
-            <strong>Playlist:</strong> {{ spotifyApiService.getPlaylistSelected().name }}
+            <strong>Playlist:</strong> {{ spowerHourService.playlistSelected.name }}
         </div>
     </div>
 </div>

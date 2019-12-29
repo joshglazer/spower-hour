@@ -1,9 +1,8 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 // Services
-import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 
 @Component({
   selector: 'app-playlists',
@@ -15,14 +14,14 @@ export class PlaylistsComponent implements OnInit {
   counter: number = null;
 
   constructor(
-    public spotifyApiService: SpotifyApiService,
+    public spowerHourService: SpowerHourService,
   ) { }
 
   ngOnInit() {
   }
 
   fixBrokenImage(index) {
-    this.spotifyApiService.playlistFixBrokenImage(index);
+    this.spowerHourService.playlistFixBrokenImage(index);
   }
 
 }

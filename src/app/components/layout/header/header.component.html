@@ -11,13 +11,13 @@
         <img id='logo' src='/assets/images/spower-hour-logo.png' />
         Spower Hour
     </h1>
-    <div *ngIf="spotifyApiService.isConnected() && spotifyApiService.profile" id='userInfo'
+    <div *ngIf="spowerHourService.isConnected() && spowerHourService.profile" id='userInfo'
     fxLayout
     fxLayout.xs="rows"
 >
-        <img *ngIf="spotifyApiService.profile.images.length" [src]='spotifyApiService.profile.images[0].url'>
+        <img *ngIf="spowerHourService.profile.images.length" [src]='spowerHourService.profile.images[0].url'>
         <div>
-                {{ spotifyApiService.profile.display_name }}<br />
+                {{ spowerHourService.profile.display_name }}<br />
                 <a href='javascript: void(0)' (click)="spowerHourService.logout()">Logout</a>
         </div>
     </div>

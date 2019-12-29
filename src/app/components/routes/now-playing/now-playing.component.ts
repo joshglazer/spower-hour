@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // Services
-import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 
 @Component({
   selector: 'app-now-playing',
@@ -12,13 +12,13 @@ import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service
 export class NowPlayingComponent implements OnInit {
 
   constructor(
-    private spotifyApiService: SpotifyApiService
+    private spowerHourService: SpowerHourService
   ) { }
 
   ngOnInit() {
   }
 
   isVisible() {
-    return this.spotifyApiService.getCurrentTrack();
+    return this.spowerHourService.getCurrentTrack();
   }
 }

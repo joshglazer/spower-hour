@@ -4,40 +4,41 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 
-// Misc.
-import * as queryString from 'query-string';
-
+// SpotifyApiService is a service that is used to interface directly with the Spotify API
 @Injectable({
   providedIn: 'root'
 })
-
 export class SpotifyApiService {
 
   // constants
   ACCESS_TOKEN_KEY = 'access_token';
 
+  // Access Token used for app API calls
   accessToken: string = null;
-  profile = null;
-  devices = [];
-  playlists = [];
-  playlistSelected = null;
-  tracks = [];
-  currentTrack = null;
-  counter = null;
-  counterLength = environment.counterLength;
-  counterInterval: number;
-
-  updateMasonryLayout = false;
 
   constructor(
     private http: HttpClient,
     private router: Router
   ) {}
 
-  isConnected(): boolean {
-    return this.accessToken !== null;
+  // Save the access token as a state variable in this service,
+  // and also save it to the browser's storage in case the page gets reloaded
+  setAccessToken(accessToken) {
+    localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
+    this.accessToken = accessToken;
   }
 
+  // Load the access token from the browser's storage
+  getAccessTokenFromStorage() {
+    return localStorage.getItem(this.ACCESS_TOKEN_KEY);
+  }
+
+  // Load the access token from the service's state
+  getAccessToken() {
+    return this.accessToken;
+  }
+
+  // Build default headers for Spotify API Calls
   getHeaders() {
     return {
       headers: new HttpHeaders({
@@ -47,6 +48,8 @@ export class SpotifyApiService {
     };
   }
 
+  // Build the Spotify API Connection URL to request all needed permissions and
+  // redirect back to the current location after a successful connection
   getConnectUrl(): string {
     const clientID = environment.spotifyClientKey;
     // Remove fragment from current url, in case there's a bad access token attached
@@ -56,149 +59,58 @@ export class SpotifyApiService {
     return connectUrl;
   }
 
-  processConnect(location): boolean {
-    const parsedHash: any = queryString.parse(location.hash);
-    if (parsedHash.access_token) {
-      this.initializeSpotifyData(parsedHash.access_token);
-      return true;
-    } else {
-      this.accessToken = null;
-      return false;
-    }
-  }
-
-  checkToken() {
-    // If a spotify access token is stored in the browser, attempt to log the user in
-    const accessToken = localStorage.getItem(this.ACCESS_TOKEN_KEY);
-    if (accessToken !== null && this.accessToken === null) {
-      this.initializeSpotifyData(accessToken);
-    }
-  }
-
-  initializeSpotifyData(accessToken) {
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);;
-    this.accessToken = accessToken;
-    this.getProfile();
-    this.getDevices();
-    this.getPlaylists();
-    return;
-  }
-
-  getProfile(): void {
+  // Spotify API call to retrieve profile information
+  async getProfile() {
     const deviceUrl = 'https://api.spotify.com/v1/me';
-    this.http.get(deviceUrl, this.getHeaders()).subscribe((res: any) => {
-      console.log(res);
-      this.profile = res;
-    });
+    return this.http.get(deviceUrl, this.getHeaders()).toPromise();
   }
 
-  getDevices() {
+  // Spotify API call to retrieve a list of all devices
+  async getDevices() {
     const deviceUrl = 'https://api.spotify.com/v1/me/player/devices';
-    this.http.get(deviceUrl, this.getHeaders()).subscribe((res: any) => {
-      this.devices = res.devices;
-    });
+    return this.http.get(deviceUrl, this.getHeaders()).toPromise();
   }
 
-  setDevice(device) {
+  // Spotify API call to retrieve a set an active device
+  async setDevice(device) {
     const deviceUrl = 'https://api.spotify.com/v1/me/player';
     const deviceData = {
       device_ids: [device.id],
-      // play: true,
     };
-    this.http.put(deviceUrl, JSON.stringify(deviceData), this.getHeaders()).subscribe((res: any) => {
-      // Wait a second due to API lag
-      setTimeout(() => this.playPlaylist(), 1000);
-    });
+    return this.http.put(deviceUrl, JSON.stringify(deviceData), this.getHeaders()).toPromise();
   }
 
-  getPlaylists() {
+  // Spotify API call to retrieve a list of all playlists
+  async getPlaylists() {
     const playlistsUrl = 'https://api.spotify.com/v1/me/playlists';
-    this.http.get(playlistsUrl, this.getHeaders()).subscribe((res: any) => {
-      this.playlists = res.items;
-      // this.updateMasonryLayout = true;
-    });
+    return this.http.get(playlistsUrl, this.getHeaders()).toPromise();
   }
 
-  playlistFixBrokenImage(index) {
-    this.playlists[index].images = [];
-  }
-
-  selectPlaylist(playlist) {
-    this.playlistSelected = playlist;
-    this.currentTrack = null;
-    this.playPlaylist();
-  }
-
-  getPlaylistSelected() {
-    return this.playlistSelected;
-  }
-
-  playPlaylist() {
-    const playlist = this.getPlaylistSelected();
+  // Spotify API call to play a playlist
+  async playPlaylist(playlist) {
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
-    const trackData = {
+    const playlistData = {
       context_uri: playlist.uri
     };
-    this.http.put(playUrl, JSON.stringify(trackData), this.getHeaders()).subscribe(
-      (res: any) => {
-        this.resetCounter();
-        this.getCurrentlyPlaying();
-        this.router.navigate(['/now-playing']);
-      },
-      (error: any) => {
-        if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {
-          this.router.navigate(['/devices']);
-        }
-      }
-    );
+    return this.http.put(playUrl, JSON.stringify(playlistData), this.getHeaders()).toPromise();
   }
 
-  playNextTrack() {
+  // Spotify API call to play the next track in a playlist
+  async playNextTrack() {
     const playNextUrl = 'https://api.spotify.com/v1/me/player/next';
-    this.http.post(playNextUrl, null, this.getHeaders()).subscribe((res: any) => {
-      this.getCurrentlyPlaying();
-    });
+    return await this.http.post(playNextUrl, null, this.getHeaders()).toPromise();
   }
 
-  getCurrentlyPlaying() {
-    // Spotify takes a bit of time to update
-    setTimeout(() => {
-      const currentlyPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
-      this.http.get(currentlyPlayingUrl, this.getHeaders()).subscribe((res: any) => {
-        this.currentTrack = res;
-      });
-    }, 500);
+  // Spotify API call to retrieve information about the track that is currently playing
+  async getCurrentlyPlaying() {
+    const currentlyPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
+    return await this.http.get(currentlyPlayingUrl, this.getHeaders()).toPromise();
   }
 
-  getCurrentTrack() {
-    return this.currentTrack;
-  }
-
-  resetCounter(playNext = true): void {
-    clearInterval(this.counterInterval);
-    if (playNext) {
-      this.counter = this.counterLength + 1;
-      this.counterInterval = window.setInterval(() => { this.counterTick(); }, 1000);
-    }
-  }
-
-  counterTick(): void {
-    if (this.counter <= 0) {
-      this.playNextTrack();
-      this.resetCounter();
-    }
-    this.counter--;
-  }
-
-  getCounter(): number {
-    return (this.counter > this.counterLength ? this.counterLength : this.counter);
-  }
-
-  stop() {
+  // Spotify API call to stop the currently playing track
+  async stop() {
     const stopUrl = 'https://api.spotify.com/v1/me/player/pause';
-    this.http.put(stopUrl, null, this.getHeaders()).subscribe((res: any) => {
-      console.log(res);
-    });
+    await this.http.put(stopUrl, null, this.getHeaders()).toPromise();
   }
 
 }

@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 
 // Services
-import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
 import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 
 // Misc.
@@ -20,12 +19,9 @@ export class HeaderComponent implements OnInit {
   faStopwatch = faStopwatch;
 
   constructor(
-    public spotifyApiService: SpotifyApiService,
     public spowerHourService: SpowerHourService,
   ) { }
 
-  ngOnInit() {
-    this.spotifyApiService.checkToken();
-  }
+  ngOnInit() { }
 
 }

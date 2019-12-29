@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Services
-import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 
 @Component({
   selector: 'app-now-playing-footer',
@@ -13,7 +13,7 @@ import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service
 export class NowPlayingFooterComponent implements OnInit {
 
   constructor(
-    public spotifyApiService: SpotifyApiService,
+    public spowerHourService: SpowerHourService,
     private router: Router,
   ) { }
 
@@ -21,7 +21,7 @@ export class NowPlayingFooterComponent implements OnInit {
   }
 
   isVisible() {
-    return (this.router.url !== '/now-playing' && this.spotifyApiService.getCurrentTrack());
+    return (this.router.url !== '/now-playing' && this.spowerHourService.getCurrentTrack());
   }
 
 }
