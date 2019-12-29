@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 // Services
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 
 // Misc
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
@@ -20,8 +21,8 @@ export class DevicesComponent implements OnInit {
   faSync = faSync;
 
   constructor(
-    public spotifyApiService: SpotifyApiService,
-    private router: Router,
+    private spotifyApiService: SpotifyApiService,
+    public spowerHourService: SpowerHourService
   ) { }
 
   ngOnInit() {

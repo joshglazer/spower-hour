@@ -3,8 +3,8 @@
 <ngx-masonry [useImagesLoaded]="true" [options]="{gutter: 10}">
   <div 
     ngxMasonryItem 
-    *ngFor="let playlist of spotifyApiService.playlists; let i = index" 
-    (click)="spotifyApiService.selectPlaylist(playlist)" 
+    *ngFor="let playlist of spowerHourService.playlists; let i = index"
+    (click)="spowerHourService.selectPlaylist(playlist)"
     class="playlist lighten"
     [ngClass]="{'brokenImage': playlist.images.length === 0}"
   >

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 // Services
 import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service';
+import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 
 // Misc
 import { faSpotify } from '@fortawesome/free-brands-svg-icons';
@@ -18,21 +19,16 @@ export class HomeComponent implements OnInit {
   faSpotify = faSpotify;
 
   constructor(
-    public spotifyApiService: SpotifyApiService,
+    private spotifyApiService: SpotifyApiService,
+    private spowerHourService: SpowerHourService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    if (this.spotifyApiService.isConnected()) {
+    if (this.spowerHourService.isConnected()) {
       this.router.navigate(['/playlists']);
     }
-
   }
-
-  // @HostListener('window:beforeunload')
-  // stopSpotify() {
-  //   this.spotifyApiService.stop();
-  // }
 
   spotifyConnect(): void {
     window.location.href = this.spotifyApiService.getConnectUrl();
