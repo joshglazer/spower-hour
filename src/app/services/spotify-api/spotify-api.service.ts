@@ -60,19 +60,19 @@ export class SpotifyApiService {
   }
 
   // Spotify API call to retrieve profile information
-  async getProfile() {
+  getProfile() {
     const deviceUrl = 'https://api.spotify.com/v1/me';
     return this.http.get(deviceUrl, this.getHeaders()).toPromise();
   }
 
   // Spotify API call to retrieve a list of all devices
-  async getDevices() {
+  getDevices() {
     const deviceUrl = 'https://api.spotify.com/v1/me/player/devices';
     return this.http.get(deviceUrl, this.getHeaders()).toPromise();
   }
 
   // Spotify API call to retrieve a set an active device
-  async setDevice(device) {
+  setDevice(device) {
     const deviceUrl = 'https://api.spotify.com/v1/me/player';
     const deviceData = {
       device_ids: [device.id],
@@ -81,13 +81,13 @@ export class SpotifyApiService {
   }
 
   // Spotify API call to retrieve a list of all playlists
-  async getPlaylists() {
+  getPlaylists() {
     const playlistsUrl = 'https://api.spotify.com/v1/me/playlists';
     return this.http.get(playlistsUrl, this.getHeaders()).toPromise();
   }
 
   // Spotify API call to play a playlist
-  async playPlaylist(playlist) {
+  playPlaylist(playlist) {
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
     const playlistData = {
       context_uri: playlist.uri
@@ -96,21 +96,21 @@ export class SpotifyApiService {
   }
 
   // Spotify API call to play the next track in a playlist
-  async playNextTrack() {
+  playNextTrack() {
     const playNextUrl = 'https://api.spotify.com/v1/me/player/next';
-    return await this.http.post(playNextUrl, null, this.getHeaders()).toPromise();
+    return this.http.post(playNextUrl, null, this.getHeaders()).toPromise();
   }
 
   // Spotify API call to retrieve information about the track that is currently playing
-  async getCurrentlyPlaying() {
+  getCurrentlyPlaying() {
     const currentlyPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
-    return await this.http.get(currentlyPlayingUrl, this.getHeaders()).toPromise();
+    return this.http.get(currentlyPlayingUrl, this.getHeaders()).toPromise();
   }
 
   // Spotify API call to stop the currently playing track
-  async stop() {
+  stop() {
     const stopUrl = 'https://api.spotify.com/v1/me/player/pause';
-    await this.http.put(stopUrl, null, this.getHeaders()).toPromise();
+    this.http.put(stopUrl, null, this.getHeaders()).toPromise();
   }
 
 }
