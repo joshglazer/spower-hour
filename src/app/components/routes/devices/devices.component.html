@@ -2,7 +2,7 @@
 <p>Your Spower Hour has to play through a device that has the Spotify app installed and running.</p>
 <p>All of your Spotify devices are listed below.  Click on the one you would like to use.</p>
 <p *ngFor="let device of spowerHourService.devices">
-    <button mat-raised-button color="primary" (click)="setDevice(device)" class="deviceButton">
+    <button mat-raised-button color="primary" (click)="spowerHourService.setDevice(device)" class="deviceButton">
         <fa-icon [icon]='faVolumeUp'></fa-icon> {{ device.name }}
     </button>
 </p>

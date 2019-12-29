@@ -66,6 +66,11 @@ export class SpowerHourService {
     this.currentTrack = null;
   }
 
+  // Redirect the user to the Spotify connection url in order to generate an acces token
+  spotifyConnect() {
+    window.location.href = this.spotifyApiService.getConnectUrl();
+  }
+
   // Parse the Spotify Access Token out of the URL and initialize the application
   processConnect(location): boolean {
     const parsedHash: any = queryString.parse(location.hash);
@@ -105,6 +110,14 @@ export class SpowerHourService {
   loadDevices() {
     this.spotifyApiService.getDevices().then((data: any) => {
       this.devices = data.devices;
+    });
+  }
+
+  // Set an active device using the Spotify API and then play the selected playlist
+  setDevice(device) {
+    this.spotifyApiService.setDevice(device).then(data => {
+      // Wait a second due to API lag
+      setTimeout(() => this.playPlaylistSelected(), 1000);
     });
   }
 
@@ -152,18 +165,23 @@ export class SpowerHourService {
   selectPlaylist(playlist) {
     this.playlistSelected = playlist;
     this.currentTrack = null;
+    this.playPlaylistSelected();
+  }
+
+  playPlaylistSelected() {
     this.spotifyApiService.playPlaylist(this.playlistSelected)
-      .then(data => {
-        this.resetCounter();
-        this.loadCurrentlyPlaying();
-        this.router.navigate(['/now-playing']);
-      })
-      .catch(error => {
-        // If the user does not have an active device set, load the devices page so that they can choose one
-        if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {
-          this.router.navigate(['/devices']);
-        }
-      });
+    .then(data => {
+      this.resetCounter();
+      this.loadCurrentlyPlaying();
+      this.router.navigate(['/now-playing']);
+    })
+    .catch(error => {
+      // If the user does not have an active device set, load the devices page so that they can choose one
+      if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {
+        this.router.navigate(['/devices']);
+      }
+    });
+
   }
 
   // Get the current track from the state
