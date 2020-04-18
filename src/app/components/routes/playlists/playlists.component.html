@@ -1,6 +1,6 @@
 <h2>You have connected your Spotify account!</h2>
 <p>Click a playlist to get your Spower Hour started.</p>
-<ngx-masonry [useImagesLoaded]="true" [options]="{gutter: 10}">
+<ngx-masonry [options]="{gutter: 10}">
   <div 
     ngxMasonryItem 
     *ngFor="let playlist of spowerHourService.playlists; let i = index"
