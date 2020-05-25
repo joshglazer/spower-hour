@@ -2,8 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 
+// NgRx
+import { RootStoreState, SpotifyApiStoreActions } from '@app/root-store';
+
 // Services
 import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
+import { Store } from '@ngrx/store';
+
+// Misc.
+import * as queryString from 'query-string';
 
 @Component({
   selector: 'app-connect',
@@ -14,15 +21,15 @@ export class ConnectComponent implements OnInit {
 
   constructor(
     private spowerHourService: SpowerHourService,
-    private router: Router
+    private router: Router,
+    private store: Store<RootStoreState.State>
   ) { }
 
   ngOnInit() {
-    const connected: boolean = this.spowerHourService.processConnect(window.location);
-    if (!connected) {
-      alert('Uh Oh! It looks like you did not agree to allow us to access your Spotify account. Please try again and make sure you click the "Agree" button.');
+    const parsedHash: any = queryString.parse(location.hash);
+    if (parsedHash.access_token) {
+      this.store.dispatch(new SpotifyApiStoreActions.LoginSuccessAction({accessToken:parsedHash.access_token}));
     }
-    this.router.navigate(['/playlists']);
   }
 
 }

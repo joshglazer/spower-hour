@@ -31,6 +31,11 @@ import { SpotifyApiService } from '@app/services/spotify-api/spotify-api.service
 import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service';
 import { HttpErrorInterceptorService } from '@app/services/http-error-interceptor/http-error-interceptor.service';
 
+// NgRx
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { RootStoreModule } from './root-store/root-store.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +59,10 @@ import { HttpErrorInterceptorService } from '@app/services/http-error-intercepto
     MatButtonModule,
     FontAwesomeModule,
     FlexLayoutModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    }),
+    RootStoreModule,
   ],
   providers: [
     SpotifyApiService,

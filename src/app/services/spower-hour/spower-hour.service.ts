@@ -43,7 +43,7 @@ export class SpowerHourService {
 
   // Check if a user is connected to the Spotify API
   isConnected(): boolean {
-    return this.spotifyApiService.accessToken !== null;
+    return this.spotifyApiService.accessToken$ !== null;
   }
 
   // Reset all state information back to default values
@@ -56,7 +56,7 @@ export class SpowerHourService {
     localStorage.removeItem(this.spotifyApiService.ACCESS_TOKEN_KEY);
 
     // Clear Service Data
-    this.spotifyApiService.accessToken = null;
+    this.spotifyApiService.accessToken$ = null;
     this.profile = null;
     this.devices = [];
     this.playlists = [];
@@ -78,7 +78,7 @@ export class SpowerHourService {
       this.initializeSpotifyData(parsedHash.access_token);
       return true;
     } else {
-      this.spotifyApiService.accessToken = null;
+      this.spotifyApiService.accessToken$ = null;
       return false;
     }
   }
@@ -199,7 +199,7 @@ export class SpowerHourService {
   }
 
   // Count down one interval
-  // If the counter reaches zero, play the next track and reset the counter back to the default lenth
+  // If the counter reaches zero, play the next track and reset the counter back to the default length
   counterTick(): void {
     if (this.counter <= 0) {
       this.spotifyApiService.playNextTrack();

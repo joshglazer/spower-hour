@@ -1,8 +1,11 @@
 // Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
+import { Store } from '@ngrx/store';
+
+import { RootStoreState, SpotifyApiStoreActions, SpotifyApiStoreSelectors } from '@app/root-store';
+import { Observable } from 'rxjs';
 
 // SpotifyApiService is a service that is used to interface directly with the Spotify API
 @Injectable({
@@ -14,18 +17,24 @@ export class SpotifyApiService {
   ACCESS_TOKEN_KEY = 'access_token';
 
   // Access Token used for app API calls
-  accessToken: string = null;
+  // accessToken: string = null;
+  accessToken$: Observable<string>;
 
   constructor(
     private http: HttpClient,
-    private router: Router
-  ) {}
+    private store$: Store<RootStoreState.State>,
+  ) {
+    this.accessToken$ = this.store$.select(
+      SpotifyApiStoreSelectors.selectSpotifyApiAccessToken
+    );
+  }
 
   // Save the access token as a state variable in this service,
   // and also save it to the browser's storage in case the page gets reloaded
   setAccessToken(accessToken) {
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
-    this.accessToken = accessToken;
+    // localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
+    // this.accessToken = accessToken;
+    // this.store$.dispatch(new SpotifyApiStoreActions.LoginSuccessAction(accessToken));
   }
 
   // Load the access token from the browser's storage
@@ -35,7 +44,7 @@ export class SpotifyApiService {
 
   // Load the access token from the service's state
   getAccessToken() {
-    return this.accessToken;
+    return this.accessToken$;
   }
 
   // Build default headers for Spotify API Calls
@@ -43,7 +52,7 @@ export class SpotifyApiService {
     return {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        Authorization: `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${this.getAccessToken()}`,
       })
     };
   }
