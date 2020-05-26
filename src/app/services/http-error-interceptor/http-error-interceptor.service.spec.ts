@@ -6,7 +6,9 @@ describe('ErrorHandlerInterceptorService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: HttpErrorInterceptorService = TestBed.get(HttpErrorInterceptorService);
+    const service: HttpErrorInterceptorService = TestBed.get(
+      HttpErrorInterceptorService
+    );
     expect(service).toBeTruthy();
   });
 });

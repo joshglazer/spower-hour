@@ -10,14 +10,12 @@ import { SpotifyApiService } from '../spotify-api/spotify-api.service';
 // Misc.
 import * as queryString from 'query-string';
 
-
 // SpowerHourService is an experience Service used to control the functionality and state
 // of the application and interface with the Spotify API Service
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpowerHourService {
-
   // State variables for the application
 
   // Variables to store information returned from the Spotify API
@@ -38,8 +36,8 @@ export class SpowerHourService {
 
   constructor(
     private router: Router,
-    private spotifyApiService: SpotifyApiService,
-  ) { }
+    private spotifyApiService: SpotifyApiService
+  ) {}
 
   // Check if a user is connected to the Spotify API
   isConnected(): boolean {
@@ -85,8 +83,13 @@ export class SpowerHourService {
 
   // If a spotify access token is stored in the browser, attempt to initalize the application with this token
   initializeToken() {
-    if (this.spotifyApiService.getAccessTokenFromStorage() !== null && this.spotifyApiService.getAccessToken() === null) {
-      this.initializeSpotifyData(this.spotifyApiService.getAccessTokenFromStorage());
+    if (
+      this.spotifyApiService.getAccessTokenFromStorage() !== null &&
+      this.spotifyApiService.getAccessToken() === null
+    ) {
+      this.initializeSpotifyData(
+        this.spotifyApiService.getAccessTokenFromStorage()
+      );
     }
   }
 
@@ -101,7 +104,7 @@ export class SpowerHourService {
 
   // Retrieve profile information from the Spotify API and store it as a state variable
   loadProfile() {
-    this.spotifyApiService.getProfile().then(data => {
+    this.spotifyApiService.getProfile().then((data) => {
       this.profile = data;
     });
   }
@@ -115,7 +118,7 @@ export class SpowerHourService {
 
   // Set an active device using the Spotify API and then play the selected playlist
   setDevice(device) {
-    this.spotifyApiService.setDevice(device).then(data => {
+    this.spotifyApiService.setDevice(device).then((data) => {
       // Wait a second due to API lag
       setTimeout(() => this.playPlaylistSelected(), 1000);
     });
@@ -123,7 +126,7 @@ export class SpowerHourService {
 
   // Retrieve playlist list from the Spotify API and store it as a state variable
   loadPlaylists() {
-     this.spotifyApiService.getPlaylists().then((data: any) => {
+    this.spotifyApiService.getPlaylists().then((data: any) => {
       this.playlists = data.items;
     });
   }
@@ -132,7 +135,7 @@ export class SpowerHourService {
   loadCurrentlyPlaying() {
     // Wait 500ms due to API lag
     setTimeout(() => {
-      this.spotifyApiService.getCurrentlyPlaying().then(data => {
+      this.spotifyApiService.getCurrentlyPlaying().then((data) => {
         this.currentTrack = data;
       });
     }, 500);
@@ -169,19 +172,19 @@ export class SpowerHourService {
   }
 
   playPlaylistSelected() {
-    this.spotifyApiService.playPlaylist(this.playlistSelected)
-    .then(data => {
-      this.resetCounter();
-      this.loadCurrentlyPlaying();
-      this.router.navigate(['/now-playing']);
-    })
-    .catch(error => {
-      // If the user does not have an active device set, load the devices page so that they can choose one
-      if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {
-        this.router.navigate(['/devices']);
-      }
-    });
-
+    this.spotifyApiService
+      .playPlaylist(this.playlistSelected)
+      .then((data) => {
+        this.resetCounter();
+        this.loadCurrentlyPlaying();
+        this.router.navigate(['/now-playing']);
+      })
+      .catch((error) => {
+        // If the user does not have an active device set, load the devices page so that they can choose one
+        if (error.error.error.reason === 'NO_ACTIVE_DEVICE') {
+          this.router.navigate(['/devices']);
+        }
+      });
   }
 
   // Get the current track from the state
@@ -194,7 +197,9 @@ export class SpowerHourService {
     clearInterval(this.counterInterval);
     if (playNext) {
       this.counter = this.counterLength + 1;
-      this.counterInterval = window.setInterval(() => { this.counterTick(); }, 1000);
+      this.counterInterval = window.setInterval(() => {
+        this.counterTick();
+      }, 1000);
     }
   }
 
@@ -212,7 +217,8 @@ export class SpowerHourService {
   // When resetting the counter, it gets set to one more than the default length.
   // This function ensures that it will never show a number larger than the default length.
   getCounter(): number {
-    return (this.counter > this.counterLength ? this.counterLength : this.counter);
+    return this.counter > this.counterLength
+      ? this.counterLength
+      : this.counter;
   }
-
 }

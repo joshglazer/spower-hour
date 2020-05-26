@@ -6,17 +6,12 @@ import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service
 @Component({
   selector: 'app-now-playing-info',
   templateUrl: './now-playing-info.component.html',
-  styleUrls: ['./now-playing-info.component.scss']
+  styleUrls: ['./now-playing-info.component.scss'],
 })
 export class NowPlayingInfoComponent implements OnInit {
-
   @Input() layout: string;
 
-  constructor(
-    public spowerHourService: SpowerHourService
-  ) { }
+  constructor(public spowerHourService: SpowerHourService) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

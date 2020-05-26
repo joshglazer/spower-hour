@@ -43,7 +43,7 @@ import { HttpErrorInterceptorService } from '@app/services/http-error-intercepto
     DevicesComponent,
     NowPlayingComponent,
     NowPlayingInfoComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,8 +62,8 @@ import { HttpErrorInterceptorService } from '@app/services/http-error-intercepto
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
       multi: true,
-    }
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
