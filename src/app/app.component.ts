@@ -9,16 +9,15 @@ import { SpowerHourService } from './services/spower-hour/spower-hour.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
   constructor(
     private router: Router,
     private googleAnalyticsTrackerService: GoogleAnalyticsTrackerService,
     private spowerHourService: SpowerHourService
   ) {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.googleAnalyticsTrackerService.trackPage(event.urlAfterRedirects);
       }

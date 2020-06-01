@@ -7,21 +7,14 @@ import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service
 @Component({
   selector: 'app-playlists',
   templateUrl: './playlists.component.html',
-  styleUrls: ['./playlists.component.scss']
+  styleUrls: ['./playlists.component.scss'],
 })
-export class PlaylistsComponent implements OnInit {
-
+export class PlaylistsComponent {
   counter: number = null;
 
-  constructor(
-    public spowerHourService: SpowerHourService,
-  ) { }
+  constructor(public spowerHourService: SpowerHourService) {}
 
-  ngOnInit() {
-  }
-
-  fixBrokenImage(index) {
+  fixBrokenImage(index: number): void {
     this.spowerHourService.playlistFixBrokenImage(index);
   }
-
 }

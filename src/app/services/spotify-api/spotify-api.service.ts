@@ -1,25 +1,25 @@
 // Angular
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 
 // SpotifyApiService is a service that is used to interface directly with the Spotify API
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpotifyApiService {
-
   // constants
   ACCESS_TOKEN_KEY = 'access_token';
 
   // Access Token used for app API calls
   accessToken: string = null;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Save the access token as a state variable in this service,
   // and also save it to the browser's storage in case the page gets reloaded
@@ -42,9 +42,9 @@ export class SpotifyApiService {
   getHeaders() {
     return {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${this.accessToken}`,
-      })
+      }),
     };
   }
 
@@ -54,7 +54,8 @@ export class SpotifyApiService {
     const clientID = environment.spotifyClientKey;
     // Remove fragment from current url, in case there's a bad access token attached
     const redirectUri = `${location.href.match(/(^[^#?]*)/)[0]}connect`;
-    const scope = 'playlist-read-private user-read-currently-playing user-read-playback-state user-modify-playback-state';
+    const scope =
+      'playlist-read-private user-read-currently-playing user-read-playback-state user-modify-playback-state';
     const connectUrl = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`;
     return connectUrl;
   }
@@ -77,7 +78,9 @@ export class SpotifyApiService {
     const deviceData = {
       device_ids: [device.id],
     };
-    return this.http.put(deviceUrl, JSON.stringify(deviceData), this.getHeaders()).toPromise();
+    return this.http
+      .put(deviceUrl, JSON.stringify(deviceData), this.getHeaders())
+      .toPromise();
   }
 
   // Spotify API call to retrieve a list of all playlists
@@ -90,9 +93,11 @@ export class SpotifyApiService {
   playPlaylist(playlist) {
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
     const playlistData = {
-      context_uri: playlist.uri
+      context_uri: playlist.uri,
     };
-    return this.http.put(playUrl, JSON.stringify(playlistData), this.getHeaders()).toPromise();
+    return this.http
+      .put(playUrl, JSON.stringify(playlistData), this.getHeaders())
+      .toPromise();
   }
 
   // Spotify API call to play the next track in a playlist
@@ -103,7 +108,8 @@ export class SpotifyApiService {
 
   // Spotify API call to retrieve information about the track that is currently playing
   getCurrentlyPlaying() {
-    const currentlyPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
+    const currentlyPlayingUrl =
+      'https://api.spotify.com/v1/me/player/currently-playing';
     return this.http.get(currentlyPlayingUrl, this.getHeaders()).toPromise();
   }
 
@@ -112,5 +118,4 @@ export class SpotifyApiService {
     const stopUrl = 'https://api.spotify.com/v1/me/player/pause';
     this.http.put(stopUrl, null, this.getHeaders()).toPromise();
   }
-
 }

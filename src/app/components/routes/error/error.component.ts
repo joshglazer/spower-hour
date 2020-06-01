@@ -12,17 +12,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss']
+  styleUrls: ['./error.component.scss'],
 })
 export class ErrorComponent implements OnInit {
-
   faSync = faSync;
   error: HttpErrorResponse;
 
   constructor(
     private spowerHourService: SpowerHourService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.error = this.spowerHourService.getError();
@@ -43,5 +42,4 @@ export class ErrorComponent implements OnInit {
     this.spowerHourService.resetSpotifyData();
     this.router.navigate(['']);
   }
-
 }

@@ -11,16 +11,15 @@ import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
   faSpotify = faSpotify;
 
   constructor(
     private spowerHourService: SpowerHourService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.spowerHourService.isConnected()) {
@@ -31,5 +30,4 @@ export class HomeComponent implements OnInit {
   spotifyConnect(): void {
     this.spowerHourService.spotifyConnect();
   }
-
 }

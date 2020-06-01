@@ -8,9 +8,8 @@ describe('NowPlayingInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NowPlayingInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [NowPlayingInfoComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
