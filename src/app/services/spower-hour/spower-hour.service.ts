@@ -160,7 +160,7 @@ export class SpowerHourService {
 
   // TODO: Handle this better
   // Fix Broken Images
-  playlistFixBrokenImage(index) {
+  playlistFixBrokenImage(index: number): void {
     this.playlists[index].images = [];
   }
 

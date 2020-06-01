@@ -13,11 +13,9 @@ import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   faSpotify = faSpotify;
   faStopwatch = faStopwatch;
 
   constructor(public spowerHourService: SpowerHourService) {}
-
-  ngOnInit() {}
 }

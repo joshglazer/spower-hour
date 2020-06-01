@@ -8,10 +8,8 @@ import { SpowerHourService } from '@app/services/spower-hour/spower-hour.service
   templateUrl: './now-playing-info.component.html',
   styleUrls: ['./now-playing-info.component.scss'],
 })
-export class NowPlayingInfoComponent implements OnInit {
+export class NowPlayingInfoComponent {
   @Input() layout: string;
 
   constructor(public spowerHourService: SpowerHourService) {}
-
-  ngOnInit() {}
 }

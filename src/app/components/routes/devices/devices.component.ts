@@ -13,11 +13,9 @@ import { faSync } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.scss'],
 })
-export class DevicesComponent implements OnInit {
+export class DevicesComponent {
   faVolumeUp = faVolumeUp;
   faSync = faSync;
 
   constructor(public spowerHourService: SpowerHourService) {}
-
-  ngOnInit() {}
 }
