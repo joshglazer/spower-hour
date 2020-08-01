@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "eslint \"**/*.{js,ts}\" --quiet --fix",
     "e2e": "ng e2e",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc --tsconfig './src/tsconfig.app.json'"
   },
   "private": true,
   "dependencies": {
