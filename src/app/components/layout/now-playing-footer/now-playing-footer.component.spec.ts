@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NowPlayingFooterComponent } from './now-playing-footer.component';
 
@@ -6,7 +6,7 @@ describe('NowPlayingFooterComponent', () => {
   let component: NowPlayingFooterComponent;
   let fixture: ComponentFixture<NowPlayingFooterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NowPlayingFooterComponent],
     }).compileComponents();

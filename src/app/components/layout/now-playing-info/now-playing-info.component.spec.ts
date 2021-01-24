@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NowPlayingInfoComponent } from './now-playing-info.component';
 
@@ -6,7 +6,7 @@ describe('NowPlayingInfoComponent', () => {
   let component: NowPlayingInfoComponent;
   let fixture: ComponentFixture<NowPlayingInfoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NowPlayingInfoComponent],
     }).compileComponents();
