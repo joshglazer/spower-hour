@@ -1,27 +1,59 @@
-# SpowerHour
+# Spower Hour
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+Spower Hour is an Angular 12 web application that lets you listen to the first minute of every song in a Spotify playlist.
 
-## Development server
+## Authors
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- [@joshglazer](https://www.github.com/joshglazer)
 
-## Code scaffolding
+## Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+A live demo of Spower Hour is available at https://spowerhour.joshglazer.com. This demo is hosted on [Netlify](https://www.netlify.com/) and deployed through a pipeline that is triggered every time code is merged into the main branch of the GitHub repository.
 
-## Build
+## Run Locally
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Clone the project
 
-## Running unit tests
+```bash
+  git clone git@github.com:joshglazer/spower-hour.git
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Go to the project directory
 
-## Running end-to-end tests
+```bash
+  cd spower-hour
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Install dependencies
 
-## Further help
+```bash
+  npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Start the server
+
+```bash
+  npm run start
+```
+
+## Environment Variables
+
+The following environment variables are able to be overridden by adding them to a environment.[environment-name].ts file.
+
+`production` A boolean variable that specified whether the code should be compiled using production or development mode.
+
+`spotifyClientKey` A Spotify API Key that can be used to connect to Spotify to retreive playlist information or play tracks on a user's device. An API key can be generated on the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
+
+`counterLength`: The amount of time that a track should play before proceeding to the following track. The default value is 60 but it may be helpful to override this to a smaller value when running and debugging locally.
+
+`gTagId`: A Google Analytics Tag ID that is used to track a user's interactions with the application. A Google Analytics Tag ID can be generated at the [Google Analytics Dashboard](https://analytics.google.com)
+
+## Deployment
+
+To deploy this project run
+
+```bash
+  npm run build
+```
+
+Once this command has been ran, a production build of this application will be available in a folder named `dist`. This compiled code can be deployed to any web server.
