@@ -6,6 +6,10 @@ Spower Hour is an Angular 12 web application that lets you listen to the first m
 
 - [@joshglazer](https://www.github.com/joshglazer)
 
+## Inspiration
+
+I had the idea for this application while hanging out with some friends. When we were younger and in college, we would occasionally play a drinking game called "Power Hour" where you would make a CD that included the first minute of 60 songs, and you would take sip of your drink every time a new song was played. My friends and I were recently looking for an app that would let us recreate the experience with a Spotify playlist, and could not find one that worked, so I decided to build it.
+
 ## Demo
 
 A live demo of Spower Hour is available at https://spowerhour.joshglazer.com. This demo is hosted on [Netlify](https://www.netlify.com/) and deployed through a pipeline that is triggered every time code is merged into the main branch of the GitHub repository.
@@ -59,10 +63,6 @@ To deploy this project run
 Once this command has been ran, a production build of this application will be available in a folder named `dist`. This compiled code can be deployed to any web server.
 
 ## Development Process
-
-### Inspiration
-
-I had the idea for this application while hanging out with some friends. When we were younger and in college, we would occasionally play a drinking game called "Power Hour" where you would make a CD that included the first minute of 60 songs, and you would take sip of your drink every time a new song was played. My friends and I were recently looking for an app that would let us recreate the experience with a Spotify playlist, and could not find one that worked, so I decided to build it.
 
 ### Application Architecture
 
